@@ -2,20 +2,37 @@
 # Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
 
 locals {
+
+
+  # This following code iterates over the variables to solve the compartments id/keys/names
+  # The configuration must be different than null and not an empty object
+  # Uses local var 'local.compartments'
   network_configuration = var.network_configuration != null ? length(var.network_configuration) > 0 ? {
+    
+    # If compartement id ! = null use it. If it's null and we have key, we extract the comparment name from 'local.compartments' using the key. Else, null.
     default_compartment_id     = var.network_configuration.default_compartment_id != null ? var.network_configuration.default_compartment_id : var.network_configuration.default_compartment_key != null ? local.compartments[var.network_configuration.default_compartment_key].id : null
     default_defined_tags       = var.network_configuration.default_defined_tags
     default_freeform_tags      = var.network_configuration.default_freeform_tags
     default_enable_cis_checks  = var.network_configuration.default_enable_cis_checks
     default_ssh_ports_to_check = var.network_configuration.default_ssh_ports_to_check
 
+    # We check if it's not null and not empty
     network_configuration_categories = var.network_configuration.network_configuration_categories != null ? length(var.network_configuration.network_configuration_categories) > 0 ? {
+      
+      # Iterates over network variable map, which are network categories
+      # netconfig_key and netconfig_value are the map values for each iteration
       for netconfig_key, netconfig_value in var.network_configuration.network_configuration_categories : netconfig_key => {
+
+        # we update the comparment id
         category_compartment_id     = netconfig_value.category_compartment_id != null ? netconfig_value.category_compartment_id : netconfig_value.category_compartment_key != null ? local.compartments[netconfig_value.category_compartment_key].id : null
+        
+        # no logic updates to do here, just direct assignments
         category_defined_tags       = netconfig_value.category_defined_tags
         category_freeform_tags      = netconfig_value.category_freeform_tags
         category_enable_cis_checks  = netconfig_value.category_enable_cis_checks
         category_ssh_ports_to_check = netconfig_value.category_ssh_ports_to_check
+
+        # We check if vcns it's not null and not empty
         vcns = netconfig_value.vcns != null ? length(netconfig_value.vcns) > 0 ? {
           for vcn_key, vcn_value in netconfig_value.vcns : vcn_key => {
             compartment_id                   = vcn_value.compartment_id != null ? vcn_value.compartment_id : vcn_value.compartment_key != null ? local.compartments[vcn_value.compartment_key].id : null
@@ -29,6 +46,8 @@ locals {
             block_nat_traffic                = vcn_value.block_nat_traffic
             defined_tags                     = vcn_value.defined_tags
             freeform_tags                    = vcn_value.freeform_tags
+            
+            # Iterate over security lists and update compamrments Ids
             security_lists = vcn_value.security_lists != null ? length(vcn_value.security_lists) > 0 ? {
               for seclist_key, seclist_value in vcn_value.security_lists : seclist_key => {
                 compartment_id = seclist_value.compartment_id != null ? seclist_value.compartment_id : seclist_value.compartment_key != null ? local.compartments[seclist_value.compartment_key].id : null
@@ -39,6 +58,8 @@ locals {
                 egress_rules   = seclist_value.egress_rules
               }
             } : {} : {}
+
+            # Iterate over route tables and update compamrments Ids
             route_tables = vcn_value.route_tables != null ? length(vcn_value.route_tables) > 0 ? {
               for rt_key, rt_value in vcn_value.route_tables : rt_key => {
                 compartment_id = rt_value.compartment_id != null ? rt_value.compartment_id : rt_value.compartment_key != null ? local.compartments[rt_value.compartment_key].id : null
@@ -48,6 +69,8 @@ locals {
                 route_rules    = rt_value.route_rules
               }
             } : {} : {}
+
+            # Iterate over dhcp options and update compamrments Ids
             dhcp_options = vcn_value.dhcp_options != null ? length(vcn_value.dhcp_options) > 0 ? {
               for dhcpo_key, dhcpo_value in vcn_value.dhcp_options : dhcpo_key => {
                 compartment_id   = dhcpo_value.compartment_id != null ? dhcpo_value.compartment_id : dhcpo_value.compartment_key != null ? local.compartments[dhcpo_value.compartment_key].id : null
@@ -58,6 +81,8 @@ locals {
                 options          = dhcpo_value.options
               }
             } : {} : {}
+
+            # Iterate over subnets and update compamrments Ids
             subnets = vcn_value.subnets != null ? length(vcn_value.subnets) > 0 ? {
               for subn_key, subn_value in vcn_value.subnets : subn_key => {
                 compartment_id             = subn_value.compartment_id != null ? subn_value.compartment_id : subn_value.compartment_key != null ? local.compartments[subn_value.compartment_key].id : null
@@ -77,6 +102,8 @@ locals {
                 security_list_keys         = subn_value.security_list_keys
               }
             } : {} : {}
+
+            # Iterate over nsgs and update compamrments Ids
             network_security_groups = vcn_value.network_security_groups != null ? length(vcn_value.network_security_groups) > 0 ? {
               for nsg_key, nsg_value in vcn_value.network_security_groups : nsg_key => {
                 compartment_id = nsg_value.compartment_id != null ? nsg_value.compartment_id : nsg_value.compartment_key != null ? local.compartments[nsg_value.compartment_key].id : null
@@ -87,6 +114,8 @@ locals {
                 display_name   = nsg_value.display_name
               }
             } : {} : {}
+
+            # Iterate over vcn gateways and update compamrments Ids
             vcn_specific_gateways = {
               internet_gateways = vcn_value.vcn_specific_gateways.internet_gateways != null ? length(vcn_value.vcn_specific_gateways.internet_gateways) > 0 ? {
                 for ig_key, ig_value in vcn_value.vcn_specific_gateways.internet_gateways : ig_key => {
@@ -133,6 +162,7 @@ locals {
             }
           }
         } : {} : {}
+        
         inject_into_existing_vcns = netconfig_value.inject_into_existing_vcns != null ? length(netconfig_value.inject_into_existing_vcns) > 0 ? {
           for vcn_key, vcn_value in netconfig_value.inject_into_existing_vcns : vcn_key => {
             vcn_id = vcn_value.vcn_id
@@ -382,6 +412,7 @@ locals {
   } : null : null
 }
 
+# Netwotk Module call with the local variable above as input.
 module "terraform-oci-cis-landing-zone-network" {
   source                = "git::https://github.com/oracle-quickstart/terraform-oci-cis-landing-zone-networking.git?ref=v0.5.3"
   network_configuration = local.network_configuration

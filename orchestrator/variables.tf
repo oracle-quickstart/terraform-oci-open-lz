@@ -859,13 +859,14 @@ variable "network_configuration" {
           })))
         }))
 
+        # Load Balancer related resource Map
         l7_load_balancers = optional(map(object({
           compartment_id              = optional(string),
           compartment_key             = optional(string),
           display_name                = string,
           shape                       = string,
-          subnet_ids                  = list(string),
-          subnet_keys                 = list(string),
+          subnet_ids                  = list(string), 
+          subnet_keys                 = list(string), 
           defined_tags                = optional(map(string)),
           freeform_tags               = optional(map(string)),
           ip_mode                     = optional(string),
@@ -878,6 +879,8 @@ variable "network_configuration" {
             maximum_bandwidth_in_mbps = number,
             minimum_bandwidth_in_mbps = number
           }))
+
+          # LB Backend map
           backend_sets = optional(map(object({
             health_checker = object({
               protocol            = string,
@@ -926,10 +929,14 @@ variable "network_configuration" {
               weight     = optional(number)
             })))
           })))
+
+          # LB SSL Comfiguration map
           cipher_suites = optional(map(object({
             ciphers = list(string),
             name    = string
           })))
+
+          # LB Policies based on URI
           path_route_sets = optional(map(object({
             name = string,
             path_routes = map(object({
@@ -940,10 +947,14 @@ variable "network_configuration" {
               })
             }))
           })))
+
+          # LB Hostnames used for backend applications
           host_names = optional(map(object({
             hostname = string,
             name     = string
           })))
+
+          # LB Routing policies
           routing_policies = optional(map(object({
             condition_language_version = string,
             name                       = string,
@@ -956,6 +967,8 @@ variable "network_configuration" {
               name      = string
             }))
           })))
+
+          # Routing rules
           rule_sets = optional(map(object({
             name = string,
             items = map(object({
@@ -984,6 +997,8 @@ variable "network_configuration" {
               value         = optional(string)
             }))
           })))
+
+          # Map of Certificates. Attached to listeners, and used against backend sets.
           certificates = optional(map(object({
             #Required
             certificate_name = string,
@@ -993,6 +1008,8 @@ variable "network_configuration" {
             private_key        = optional(string),
             public_certificate = optional(string)
           })))
+
+          # Map of lisneters
           listeners = optional(map(object({
             default_backend_set_key = string,
             name                    = string,
