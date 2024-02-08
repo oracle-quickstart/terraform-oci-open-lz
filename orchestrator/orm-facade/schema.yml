@@ -1,10 +1,10 @@
 # ####################################################################################################### #
-# Copyright (c) 2023 Oracle and/or its affiliates,  All rights reserved.                                  #
+# Copyright (c) 2024 Oracle and/or its affiliates,  All rights reserved.                                  #
 # Licensed under the Universal Permissive License v 1.0 as shown at https: //oss.oracle.com/licenses/upl. #
 # Author: Cosmin Tudor                                                                                    #
 # Author email: cosmin.tudor@oracle.com                                                                   #
-# Last Modified: Thu Nov 16 2023                                                                          #
-# Modified by: Cosmin Tudor, email: cosmin.tudor@oracle.com                                               #
+# Last Modified: Thu Feb 08, 2023                                                                         #
+# Modified by: andre.correa@oracle.com                                                                    #
 # ####################################################################################################### #
 
 
@@ -23,6 +23,7 @@ variableGroups:
     visible: true
     variables:
       - input_config_files_urls
+      - dependency_files_urls
   - title: "Hidden Variables"
     visible: false
     variables:
@@ -32,7 +33,7 @@ variableGroups:
       - "private_key_path"
       - "private_key_password"
       - "region"
-      - "home_region"
+    
 variables:
   input_config_files_urls:
     type: array
@@ -40,11 +41,36 @@ variables:
       type: string
     multiline: true
     uniqueItems: true
-    title: Type or Paste the URLs
+    title: "List of URLs that point to the JSON configuration files (Type or Paste the URLs)"
     additionalProps:
         allowMultiple: true
-    description: "Only JSON files accepted - HCL not supported yet"
+    description: "Only JSON files accepted - HCL not supported yet."
     required: false
+
+  dependency_files_urls:
+    type: array
+    items:
+      type: string
+    multiline: true
+    uniqueItems: true
+    title: "List of URLs that point to files containing dependencies expressed in the input config files (Type or Paste the URLs)"
+    additionalProps:
+        allowMultiple: true
+    description: "Only JSON files accepted."
+    required: false  
+
+  # Hidden variables
+  user_ocid:
+    type: string
+
+  fingerprint:
+    type: string
+
+  private_key_path:
+    type: string
+
+  private_key_password:
+    type: password
 
 outputs:
   release:
@@ -73,6 +99,6 @@ outputGroups:
     outputs:
       - ${provisioned_identity_resources}    
 
-  - title: Neworking Resources
+  - title: Networking Resources
     outputs:
       - ${provisioned_networking_resources}    

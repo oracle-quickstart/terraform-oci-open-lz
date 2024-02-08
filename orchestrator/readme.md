@@ -1,7 +1,5 @@
 # The OCI Open LZ Orchestrator Module
 
-
-
 ## **Table of Contents**
 
 [1. Overview](#1-overview)</br>

@@ -11,16 +11,15 @@
 output "provisioned_identity_resources" {
   description = "Provisioned identity resources"
   value = {
-    compartments   = module.cislz_compartments.compartments,
-    groups         = module.cislz_groups.groups,
-    dynamic_groups = module.cislz_dynamic_groups.dynamic_groups,
-    memberships    = module.cislz_groups.memberships,
-    policies       = module.cislz_policies.policies
-
+    compartments   = module.oci_open_lz_orch_compartments.compartments,
+    groups         = module.oci_open_lz_orch_groups.groups,
+    memberships    = module.oci_open_lz_orch_groups.memberships,
+    dynamic_groups = module.oci_open_lz_orch_dynamic_groups.dynamic_groups,
+    policies       = module.oci_open_lz_orch_policies.policies
   }
 }
 
 output "provisioned_networking_resources" {
   description = "Provisioned networking resources"
-  value       = module.terraform-oci-cis-landing-zone-network.provisioned_networking_resources
+  value       = module.oci_open_lz_orch_networking.provisioned_networking_resources
 }
