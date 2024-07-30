@@ -84,10 +84,10 @@ For customizations see the full [group resoruce documentation](https://github.co
 As part of the deploymnet the following policies are created:
 | Policy                     | Description                                             | Manage resources             | Use resources                   | Inspect resources |
 | -------------------------- | ------------------------------------------------------- | ---------------------------- | ------------------------------- | ----------------- |
-| pcy-p-project-dig-asst-admins | Grants group *pcy-p-project-dig-asst-admins* perminssions. | oda-family, object-family | virtual-network-family, tagnamespace | Security Lists    |
-| pcy-p-project-dig-asst-developers | Grants group *pcy-p-project-dig-asst-developers* perminssions. |  | oda-design, oda-insights | oda-instances    |
-| pcy-p-project-dig-asst-business-users | Grants group *pcy-p-project-dig-asst-business-users* perminssions. |  | oda-insights | oda-design, oda-instances  |
-| pcy-p-project-dig-asst-api-users | Grants group *pcy-p-project-dig-asst-api-users* perminssions. |  | oda-instance-resource, oda-design |   |
+| pcy-p-project-dig-asst-admins | Grants group *grp-p-project-dig-asst-admins* perminssions. | oda-family, object-family | virtual-network-family, tagnamespace | Security Lists    |
+| pcy-p-project-dig-asst-developers | Grants group *grp-p-project-dig-asst-developers* perminssions. |  | oda-design, oda-insights | oda-instances    |
+| pcy-p-project-dig-asst-business-users | Grants group *grp-p-project-dig-asst-business-users* perminssions. |  | oda-insights | oda-design, oda-instances  |
+| pcy-p-project-dig-asst-api-users | Grants group *grp-p-project-dig-asst-api-users* perminssions. |  | oda-instance-resource, oda-design |   |
 
 Policies contain compartment paths. The paths can change based on the modification in the previous [Compartments](#21-compartments) section. The paths need to be updated following the OCI [Policies and Compartment hierarchy](https://docs.oracle.com/en-us/iaas/Content/Identity/Concepts/policies.htm#hierarchy).
 
