@@ -85,9 +85,9 @@ For customizations see the full [group resoruce documentation](https://github.co
 As part of the deploymnet the following policies are created:
 | Policy                     | Description                                             | Manage resources             | Use resources                   | Inspect resources |
 | -------------------------- | ------------------------------------------------------- | ---------------------------- | ------------------------------- | ----------------- |
-| pcy-platform-genai-cluster-admins | Grants group *pcy-platform-genai-cluster-admins* perminssions. | genai-cluter, object family | tag namespace |    |
-| pcy-p-platform-genai-cluster-admins | Grants group *pcy-p-platform-genai-cluster-admins* perminssions. | genai-cluter, object family  | tag namespace  |
-| pcy-p-project-genai-admins | Grants group *pcy-p-project-genai-admins* perminssions. |  | genai-cluter, object family |      |
+| pcy-platform-genai-cluster-admins | Grants group *grp-platform-genai-cluster-admins* perminssions. | genai-cluter, object family | tag namespace |    |
+| pcy-p-platform-genai-cluster-admins | Grants group *grp-p-platform-genai-cluster-admins* perminssions. | genai-cluter, object family  | tag namespace  |
+| pcy-p-project-genai-admins | Grants group *grp-p-project-genai-admins* perminssions. |  | genai-cluter, object family |      |
 
 Policies contain compartment paths. The paths can change based on the modification in the previous [Compartments](#21-compartments) section. The paths need to be updated following the OCI [Policies and Compartment hierarchy](https://docs.oracle.com/en-us/iaas/Content/Identity/Concepts/policies.htm#hierarchy).
 
