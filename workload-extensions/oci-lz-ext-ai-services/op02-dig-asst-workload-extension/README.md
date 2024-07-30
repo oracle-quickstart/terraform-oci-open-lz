@@ -1,4 +1,4 @@
-# OP.01 - Manage GENAI Landing Zone Extension <!-- omit from toc -->
+# OP.01 - Manage AI Service Digital Assistant Landing Zone Extension <!-- omit from toc -->
 
 ## **Table of Contents** <!-- omit from toc -->
 
@@ -7,6 +7,7 @@
   - [**2.1. Compartments**](#21-compartments)
   - [**2.2 Groups**](#22-groups)
   - [**2.3 Policies**](#23-policies)
+- [**3. Setup Network Configuration**](#3-setup-network-configuration)
 - [**4. Run with ORM**](#4-run-with-orm)
 - [**5. Run with Terraform CLI**](#5-run-with-terraform-cli)
   - [**5.1 Setup Terraform Authentication**](#51-setup-terraform-authentication)
@@ -25,11 +26,12 @@
 |                           |                                                                                                                                                                |
 | ------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **OP. ID**                | OP.01                                                                                                                                                          |
-| **OP. NAME**              | GENAI Landing Zone Extension                                                                                                                                    |
-| **OBJECTIVE**             | Provision OCI GENAI Landing Zone IAM Extensions.                                                                                                    |
-| **TARGET RESOURCES**      | **Security**: Compartments, Groups, Policies</br>                                                      |
-| **IAM CONFIGURATION**     | [oci_open_lz_one-oe_identity.auto.tfvars.json](/workload-extensions/oci-lz-ext-ai-services/op01-genai-workload-extension/oci_open_lz_one-oe_identity.auto.tfvars.json) |
-| **PRE-ACTIVITIES**        | Execute [OP.00. Deploy OneOE LZ](../../../one-oe/)                                                                                                                                              
+| **OP. NAME**              | Digital Assistant Landing Zone Extension                                                                                                                                    |
+| **OBJECTIVE**             | Provision OCI Digital Assistant Landing Zone IAM and Network Extensions.                                                                                                    |
+| **TARGET RESOURCES**      | - **Security**: Compartments, Groups, Policies</br>- **Network**: Spoke VCNs, Route tables, Security Lists                                                     |
+| **IAM CONFIGURATION**     | [oci_open_lz_one-oe_identity.auto.tfvars.json](/workload-extensions/oci-lz-ext-ai-services/op02-dig-asst-workload-extension/oci_open_lz_one-oe_identity.auto.tfvars.json) |
+| **NETWORK CONFIGURATION** | [oci_open_lz_one-oe_network.auto.tfvars.json](/workload-extensions/oci-lz-ext-ai-services/op02-dig-asst-workload-extension/oci_open_lz_one-oe_network.auto.tfvars.json)   |
+| **PRE-ACTIVITIES**        | Execute [OP.00. Deploy OneOE LZ](../../../one-oe/)                                                                      |
 | **RUN OPERATION**         | Use [ORM](#4-run-with-orm) or use [Terraform CLI](#5-run-with-terraform-cli).                                                                                  |
 
 
@@ -38,7 +40,7 @@
 
 ## **2. Setup IAM Configuration**
 
-For configuring and running the OneOE Landing Zone Genai extension Identity Layer use the following JSON file: [oci_open_lz_one-oe_identity.auto.tfvars.json](/workload-extensions/oci-lz-ext-ai-services/op01-genai-workload-extension/oci_open_lz_one-oe_identity.auto.tfvars.json) You can customize this configuration to fit your exact OCI IAM topology.
+For configuring and running the OneOE Landing Zone Digital Assistant extension Identity Layer use the following JSON file: [oci_open_lz_one-oe_identity.auto.tfvars.json](/workload-extensions/oci-lz-ext-ai-services/op02-dig-asst-workload-extension/oci_open_lz_one-oe_identity.auto.tfvars.json) You can customize this configuration to fit your exact OCI IAM topology.
 
 This configuration file covers three categories of resources described in the next sections.
 
@@ -47,8 +49,6 @@ Search for the values indicated below and replace with the correct OCIDs:
 
 | Resource                  | OCID Text to Replace              | Description                        |
 | ------------------------- | --------------------------------- | ---------------------------------- |
-| Shared Platform Compartment | \<OCID-COMPARTMENT-SHARED-PLATFORM> | The Shared platform compartment OCID |
-| Prod Platform Compartment | \<OCID-COMPARTMENT-PROD-PLATFORM> | The prod platform compartment OCID |
 | Prod Project Compartment | \<OCID-COMPARTMENT-PROD-PROJECT> | The prod project compartment OCID |
 
 &nbsp; 
@@ -57,13 +57,11 @@ Search for the values indicated below and replace with the correct OCIDs:
 
 The diagram below identifies the compartments in the scope of this operation.
 
-<img src="../diagrams/genai-compartments.png" width="1000" height="auto">
+<img src="../diagrams/da-compartments.png" width="1000" height="auto">
 
 &nbsp; 
 
-The Genai extension provisions 3 compartments. The shared Genai cluster compartment, Prod platform Genai cluster compartment and the genai project compartment under the production project area. 
-
-OneOE Landing Zones defines multiple instances of platform compartment. Platform comparment is created **for each environement**, and **one shared** platform for resources spanning multiple environments. 
+The Digital Assistant extension provisions a single compartment under the production project area.
 
 Using this extension requires choosing the right platform for the use cases. Extension can be modified to provision multiple instances of the delpoyment. For customizations see the full [compartment resource documentation](https://github.com/oracle-quickstart/terraform-oci-cis-landing-zone-iam/tree/main/compartments).
 
@@ -73,9 +71,10 @@ Using this extension requires choosing the right platform for the use cases. Ext
 As part of the deployment the following groups are created in the [Default Identity Domain](https://docs.oracle.com/en-us/iaas/Content/Identity/domains/overview.htm):
 | Group                      | Description                                                               |
 | -------------------------- | ------------------------------------------------------------------------- |
-| grp-platform-genai-cluster-admins | Members of the group are able to administer shared genai cluster and accompained services |
-| grp-p-platform-genai-cluster-admins | Members of the group are able to administer prod platform genai cluter and accompained services |
-| grp-p-project-genai-admins | Members of the group are able to administer genai project and accompained services |
+| grp-p-project-dig-asst-admins | Members of the group are able to administer digital assistant and accompained services |
+| grp-p-project-dig-asst-developers | Members of the group are digital assistant service developers |
+| grp-p-project-dig-asst-business-users | Members of the group are digital assistant service business users |
+| grp-p-project-dig-asst-api-users | Members of the group are digital assistant API users |
 
 For customizations see the full [group resoruce documentation](https://github.com/oracle-quickstart/terraform-oci-cis-landing-zone-iam/tree/main/groups)
 
@@ -85,9 +84,10 @@ For customizations see the full [group resoruce documentation](https://github.co
 As part of the deploymnet the following policies are created:
 | Policy                     | Description                                             | Manage resources             | Use resources                   | Inspect resources |
 | -------------------------- | ------------------------------------------------------- | ---------------------------- | ------------------------------- | ----------------- |
-| pcy-platform-genai-cluster-admins | Grants group *pcy-platform-genai-cluster-admins* perminssions. | genai-cluter, object family | tag namespace |    |
-| pcy-p-platform-genai-cluster-admins | Grants group *pcy-p-platform-genai-cluster-admins* perminssions. | genai-cluter, object family  | tag namespace  |
-| pcy-p-project-genai-admins | Grants group *pcy-p-project-genai-admins* perminssions. |  | genai-cluter, object family |      |
+| pcy-p-project-dig-asst-admins | Grants group *pcy-p-project-dig-asst-admins* perminssions. | oda-family, object-family | virtual-network-family, tagnamespace | Security Lists    |
+| pcy-p-project-dig-asst-developers | Grants group *pcy-p-project-dig-asst-developers* perminssions. |  | oda-design, oda-insights | oda-instances    |
+| pcy-p-project-dig-asst-business-users | Grants group *pcy-p-project-dig-asst-business-users* perminssions. |  | oda-insights | oda-design, oda-instances  |
+| pcy-p-project-dig-asst-api-users | Grants group *pcy-p-project-dig-asst-api-users* perminssions. |  | oda-instance-resource, oda-design |   |
 
 Policies contain compartment paths. The paths can change based on the modification in the previous [Compartments](#21-compartments) section. The paths need to be updated following the OCI [Policies and Compartment hierarchy](https://docs.oracle.com/en-us/iaas/Content/Identity/Concepts/policies.htm#hierarchy).
 
@@ -95,11 +95,45 @@ For customizations see the full [policy resource documentation](https://github.c
 
 &nbsp; 
 
+## **3. Setup Network Configuration**
+
+For configuring and running the OneOE LZ Digital Assistant extension Network layer use the following JSON file: [oci_open_lz_one-oe_network.auto.tfvars.json](/workload-extensions/oci-lz-ext-ai-services/op02-dig-asst-workload-extension/oci_open_lz_one-oe_network.auto.tfvars.json)
+
+This configuration file will require changes to the resources to reference the OCIDs of the OneOE Landing Zone.
+Search for the values indicated below and replace with the correct OCIDs:
+
+| Resource                 | OCID Text to Replace             | Description                                                      |
+| ------------------------ | -------------------------------- | ---------------------------------------------------------------- |
+| Prod Network Compartment | \<OCID-COMPARTMENT-PROD-NETWORK> | The OCID of the Prod Network Compartment deployed in step OP.00. |
+| Hub DRG                  | \<OCID-DRG-HUB>                  | The OCID of the DRG in Hub deployed in step OP.00.               |
+| Hub DRG Route Table      | \<OCID-DRG-HUB-ROUTE-TABLE>      | The OCID of Route table in DRG                                   |
+
+This configuration covers the following networking diagram. 
+
+&nbsp; 
+
+<img src="../diagrams/network.png" width="1000" height="auto">
+
+&nbsp; 
+
+For customization of the pre-defined setup please refer to the [Networking documentation](https://github.com/oracle-quickstart/terraform-oci-cis-landing-zone-networking) for documentation and examples.
+
+The network layer covers the following resources:
+
+1. Spoke VCN - one Spoke VCN for AI Services
+2. Subnets - one Subnet for Digital Assistant 
+3. Gateway - Service Gateway to access OCI services
+4. Security List - Security list for Digital Assistant private endpoint
+5. Route Tables - One for Service Gateway, and a default route for routing all trafic through the central hub
+6. DRG Attachment - Connect spoke with the central Hub
+
+&nbsp; 
+
 ## **4. Run with ORM**
 
 | STEP  | ACTION                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
 | ----- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **1** | [![Deploy_To_OCI](/images/DeployToOCI.svg)](https://cloud.oracle.com/resourcemanager/stacks/create?zipUrl=https://github.com/oracle-quickstart/terraform-oci-landing-zones-orchestrator/archive/refs/tags/v2.0.0.zip&zipUrlVariables={"input_config_files_urls":"https://raw.githubusercontent.com/oracle-quickstart/terraform-oci-open-lz/master/workload-extensions/oci-lz-ext-ai-services/op01-genai-workload-extension/oci_open_lz_one-oe_identity.auto.tfvars.json"}) |
+| **1** | [![Deploy_To_OCI](/images/DeployToOCI.svg)](https://cloud.oracle.com/resourcemanager/stacks/create?zipUrl=https://github.com/oracle-quickstart/terraform-oci-landing-zones-orchestrator/archive/refs/tags/v2.0.0.zip&zipUrlVariables={"input_config_files_urls":"https://raw.githubusercontent.com/oracle-quickstart/terraform-oci-open-lz/master/workload-extensions/oci-lz-ext-ai-services/op02-dig-asst-workload-extension/oci_open_lz_one-oe_identity.auto.tfvars.json,https://raw.githubusercontent.com/oracle-quickstart/terraform-oci-open-lz/master/workload-extensions/oci-lz-ext-ai-services/op02-dig-asst-workload-extension/oci_open_lz_one-oe_network.auto.tfvars.json"}) |
 | **2** | Accept terms,  wait for the configuration to load.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
 | **3** | Set the working directory to “orm-facade”.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
 | **4** | Set the stack name you prefer.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
@@ -130,7 +164,8 @@ Run ```terraform plan``` with the IAM and Network configuration.
 ```
 terraform plan \
 -var-file ../terraform-oci-open-lz/commons/content/oci-credentials.tfvars.json \
--var-file ../terraform-oci-open-lz/workload-extensions/oci-lz-ext-ai-services/op01-genai-workload-extension/oci_open_lz_one-oe_identity.auto.tfvars.json
+-var-file ../terraform-oci-open-lz/workload-extensions/oci-lz-ext-ai-services/op02-dig-asst-workload-extension/oci_open_lz_one-oe_identity.auto.tfvars.json \
+-var-file ../terraform-oci-open-lz/workload-extensions/oci-lz-ext-ai-services/op02-dig-asst-workload-extension/oci_open_lz_one-oe_network.auto.tfvars.json
 ```
 
 After the execution please analyze the output of the command above and check if it corresponds to your desired configuration.
@@ -144,7 +179,8 @@ Run terraform plan with the IAM and Network configuration. After  its execution 
 ```
 terraform apply \
 -var-file ../terraform-oci-open-lz/commons/content/oci-credentials.tfvars.json \
--var-file ../terraform-oci-open-lz/workload-extensions/oci-lz-ext-ai-services/op01-genai-workload-extension/oci_open_lz_one-oe_identity.auto.tfvars.json
+-var-file ../terraform-oci-open-lz/workload-extensions/oci-lz-ext-ai-services/op02-dig-asst-workload-extension/oci_open_lz_one-oe_identity.auto.tfvars.json \
+-var-file ../terraform-oci-open-lz/workload-extensions/oci-lz-ext-ai-services/op02-dig-asst-workload-extension/oci_open_lz_one-oe_network.auto.tfvars.json
 ```
 
 
