@@ -93,14 +93,14 @@ The AI Services LZ Extension includes the following policies:
 
 | ID     | OP    | NAME                       | OBJECTIVES                                                                                                     |
 | ------ | ----- | -------------------------- | -------------------------------------------------------------------------------------------------------------- |
-| POL.00 | OP#01 | pcy-platform-genai-cluster-admins | Policy granting permissions for administering shared genai cluster related resources to the *grp-p-platform-ocvs-admins* group |
-| POL.00 | OP#01 | pcy-p-platform-genai-cluster-admins | Policy granting permissions for administering prod genai cluster related resources to the *grp-p-platform-ocvs-admins* group |
-| POL.00 | OP#01 | pcy-p-project-genai-admins | Policy granting permissions for administering genai related resources to the *grp-p-platform-ocvs-admins* group |
-| POL.00 | OP#01 | pcy-p-project-dig-asst-admins | Policy granting permissions for administering digital assistant related resources to the *grp-p-platform-ocvs-admins* group |
-| POL.00 | OP#01 | pcy-p-project-vision-admins | Policy granting permissions for administering vision related resources to the *grp-p-platform-ocvs-admins* group |
-| POL.00 | OP#01 | pcy-p-project-speech-admins | Policy granting permissions for administering speech related resources to the *grp-p-platform-ocvs-admins* group |
-| POL.00 | OP#01 | pcy-p-project-language-admins | Policy granting permissions for administering language related resources to the *grp-p-platform-ocvs-admins* group |
-| POL.00 | OP#01 | pcy-p-project-doc-understanding-admins | Policy granting permissions for administering document understanding related resources to the *grp-p-platform-ocvs-admins* group |
+| POL.00 | OP#01 | pcy-platform-genai-cluster-admins | Policy granting permissions for administering shared genai cluster related resources to the *grp-platform-genai-cluster-admins* group |
+| POL.00 | OP#01 | pcy-p-platform-genai-cluster-admins | Policy granting permissions for administering prod genai cluster related resources to the *grp-p-platform-genai-cluster-admins* group |
+| POL.00 | OP#01 | pcy-p-project-genai-admins | Policy granting permissions for administering genai related resources to the *grp-p-project-genai-admins* group |
+| POL.00 | OP#01 | pcy-p-project-dig-asst-admins | Policy granting permissions for administering digital assistant related resources to the *grp-p-project-dig-asst-admins* group |
+| POL.00 | OP#01 | pcy-p-project-vision-admins | Policy granting permissions for administering vision related resources to the *grp-p-project-vision-admins* group |
+| POL.00 | OP#01 | pcy-p-project-speech-admins | Policy granting permissions for administering speech related resources to the *grp-p-project-speech-admins* group |
+| POL.00 | OP#01 | pcy-p-project-language-admins | Policy granting permissions for administering language related resources to the *grp-p-project-language-admins* group |
+| POL.00 | OP#01 | pcy-p-project-doc-understanding-admins | Policy granting permissions for administering document understanding related resources to the *grp-p-project-doc-understanding-admins* group |
 
 
 &nbsp; 
@@ -159,7 +159,7 @@ The following table describes the deployed Security Lists (SLs).
 
 | ID    | OP    | NAME                | OBJECTIVES                              |
 | ----- | ----- | ------------------- | --------------------------------------- |
-| SL.00 | OP#01 | sl-01-p-ai-service-vcn-ep | OCVS Load Balancer subnet security list |
+| SL.00 | OP#01 | sl-01-p-ai-service-vcn-da | AI service digital assistant subnet security list |
 
 &nbsp; 
 
@@ -172,7 +172,7 @@ The following tables describe the deployed DRG Attachments.
 
 | ID      | OP    | NAME                      | OBJECTIVES                                   |
 | ------- | ----- | ------------------------- | -------------------------------------------- |
-| DRGA.00 | OP#02 | ai-service-vcn-p-drg-attachment | DRG Attachment for the OCVS spoke to the hub |
+| DRGA.00 | OP#02 | ai-service-vcn-p-drg-attachment | DRG Attachment for the AI Service spoke to the hub |
 
 
 #### **4.5.2 Service Gateway (SGs)**
@@ -183,7 +183,7 @@ The following table describes the proposed Service Gateways.
 
 | ID    | OP    | NAME          | OBJECTIVES           |
 | ----- | ----- | ------------- | -------------------- |
-| SG.00 | OP#01 | sg-fra-p-ai-service | SG in the OCVSS VCN. |
+| SG.00 | OP#01 | sg-fra-p-ai-service | SG in the AI Service VCN. |
 
 &nbsp; 
 
@@ -198,15 +198,15 @@ An operation scenario is normally triggered by a service request, on a ticketing
 
 
 
-The OCVS LZ Extension has three operation scenarios described in the following table.
+The AI Service LZ Extension has three operation scenarios described in the following table.
 
 
 
 | OP. ID                                           | OPERATION SCENARIOS DESCRIPTION                                                                                                                  | TIME EFFORTS                          |
 | ------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------- |
 | **[OP. ID.00](../../one-oe/)**                   | **Deploy One-OE Landing ZOne**. Cover Core network resources (Hub VCN), Core IAM resources (compartments, group, policies), and security services.          | **< 1h**                              |
-| **[OP. ID.01](./op01-ocvs-workload-extension/)** | **Deploy AI service extension**. Include AI service IAM resources (Compartment, Groups, Policies) and optional network resources (Spokes VCNs, Table Routes, Security Lists) | **< 30m**                             |
-| **[OP. ID.02](./op02-ocvs-setup/)**              | **OCI AI service Setup**                                                                                                                                   | **< 15m** (excluding deployment time) |
+| **[OP. ID.01](./op01-genai-workload-extension/)** | **Deploy Genai extension**. Include AI service IAM resources (Compartment, Groups, Policies) and optional network resources (Spokes VCNs, Table Routes, Security Lists) | **< 30m**                             |
+| **[OP. ID.02](./op02-dig-asst-workload-extension/)**              | **Deploy Digital Assistant extension**. Include AI service IAM resources (Compartment, Groups, Policies) and optional network resources (Spokes VCNs, Table Routes, Security Lists) |  **< 15m** (excluding deployment time) |
 
 &nbsp; 
 
