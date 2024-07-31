@@ -29,8 +29,8 @@
 | **OP. NAME**              | Digital Assistant Landing Zone Extension                                                                                                                                    |
 | **OBJECTIVE**             | Provision OCI Digital Assistant Landing Zone IAM and Network Extensions.                                                                                                    |
 | **TARGET RESOURCES**      | - **Security**: Compartments, Groups, Policies</br>- **Network**: Spoke VCNs, Route tables, Security Lists                                                     |
-| **IAM CONFIGURATION**     | [oci_open_lz_one-oe_identity.auto.tfvars.json](/workload-extensions/oci-lz-ext-ai-services/op02-dig-asst-workload-extension/oci_open_lz_one-oe_identity.auto.tfvars.json) |
-| **NETWORK CONFIGURATION** | [oci_open_lz_one-oe_network.auto.tfvars.json](/workload-extensions/oci-lz-ext-ai-services/op02-dig-asst-workload-extension/oci_open_lz_one-oe_network.auto.tfvars.json)   |
+| **IAM CONFIGURATION**     | [digital_assistant_identity.auto.tfvars.json](/workload-extensions/oci-lz-ext-ai-services/digital_assistant/digital_assistant_identity.auto.tfvars.json) |
+| **NETWORK CONFIGURATION** | [digital_assistant_network.auto.tfvars.json](/workload-extensions/oci-lz-ext-ai-services/digital_assistant/digital_assistant_network.auto.tfvars.json)   |
 | **PRE-ACTIVITIES**        | Execute [OP.00. Deploy OneOE LZ](../../../one-oe/)                                                                      |
 | **RUN OPERATION**         | Use [ORM](#4-run-with-orm) or use [Terraform CLI](#5-run-with-terraform-cli).                                                                                  |
 
@@ -40,7 +40,7 @@
 
 ## **2. Setup IAM Configuration**
 
-For configuring and running the OneOE Landing Zone Digital Assistant extension Identity Layer use the following JSON file: [oci_open_lz_one-oe_identity.auto.tfvars.json](/workload-extensions/oci-lz-ext-ai-services/op02-dig-asst-workload-extension/oci_open_lz_one-oe_identity.auto.tfvars.json) You can customize this configuration to fit your exact OCI IAM topology.
+For configuring and running the OneOE Landing Zone Digital Assistant extension Identity Layer use the following JSON file: [digital_assistant_identity.auto.tfvars.json](/workload-extensions/oci-lz-ext-ai-services/digital_assistant/digital_assistant_identity.auto.tfvars.json) You can customize this configuration to fit your exact OCI IAM topology.
 
 This configuration file covers three categories of resources described in the next sections.
 
@@ -97,7 +97,7 @@ For customizations see the full [policy resource documentation](https://github.c
 
 ## **3. Setup Network Configuration**
 
-For configuring and running the OneOE LZ Digital Assistant extension Network layer use the following JSON file: [oci_open_lz_one-oe_network.auto.tfvars.json](/workload-extensions/oci-lz-ext-ai-services/op02-dig-asst-workload-extension/oci_open_lz_one-oe_network.auto.tfvars.json)
+For configuring and running the OneOE LZ Digital Assistant extension Network layer use the following JSON file: [digital_assistant_network.auto.tfvars.json](/workload-extensions/oci-lz-ext-ai-services/digital_assistant/digital_assistant_network.auto.tfvars.json)
 
 This configuration file will require changes to the resources to reference the OCIDs of the OneOE Landing Zone.
 Search for the values indicated below and replace with the correct OCIDs:
@@ -133,7 +133,7 @@ The network layer covers the following resources:
 
 | STEP  | ACTION                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
 | ----- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **1** | [![Deploy_To_OCI](/images/DeployToOCI.svg)](https://cloud.oracle.com/resourcemanager/stacks/create?zipUrl=https://github.com/oracle-quickstart/terraform-oci-landing-zones-orchestrator/archive/refs/tags/v2.0.0.zip&zipUrlVariables={"input_config_files_urls":"https://raw.githubusercontent.com/oracle-quickstart/terraform-oci-open-lz/master/workload-extensions/oci-lz-ext-ai-services/op02-dig-asst-workload-extension/oci_open_lz_one-oe_identity.auto.tfvars.json,https://raw.githubusercontent.com/oracle-quickstart/terraform-oci-open-lz/master/workload-extensions/oci-lz-ext-ai-services/op02-dig-asst-workload-extension/oci_open_lz_one-oe_network.auto.tfvars.json"}) |
+| **1** | [![Deploy_To_OCI](/images/DeployToOCI.svg)](https://cloud.oracle.com/resourcemanager/stacks/create?zipUrl=https://github.com/oracle-quickstart/terraform-oci-landing-zones-orchestrator/archive/refs/tags/v2.0.0.zip&zipUrlVariables={"input_config_files_urls":"https://raw.githubusercontent.com/oracle-quickstart/terraform-oci-open-lz/master/workload-extensions/oci-lz-ext-ai-services/digital_assistant/digital_assistant_identity.auto.tfvars.json,https://raw.githubusercontent.com/oracle-quickstart/terraform-oci-open-lz/master/workload-extensions/oci-lz-ext-ai-services/digital_assistant/digital_assistant_network.auto.tfvars.json"}) |
 | **2** | Accept terms,  wait for the configuration to load.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
 | **3** | Set the working directory to “orm-facade”.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
 | **4** | Set the stack name you prefer.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
@@ -164,8 +164,8 @@ Run ```terraform plan``` with the IAM and Network configuration.
 ```
 terraform plan \
 -var-file ../terraform-oci-open-lz/commons/content/oci-credentials.tfvars.json \
--var-file ../terraform-oci-open-lz/workload-extensions/oci-lz-ext-ai-services/op02-dig-asst-workload-extension/oci_open_lz_one-oe_identity.auto.tfvars.json \
--var-file ../terraform-oci-open-lz/workload-extensions/oci-lz-ext-ai-services/op02-dig-asst-workload-extension/oci_open_lz_one-oe_network.auto.tfvars.json
+-var-file ../terraform-oci-open-lz/workload-extensions/oci-lz-ext-ai-services/digital_assistant/digital_assistant_identity.auto.tfvars.json \
+-var-file ../terraform-oci-open-lz/workload-extensions/oci-lz-ext-ai-services/digital_assistant/digital_assistant_network.auto.tfvars.json
 ```
 
 After the execution please analyze the output of the command above and check if it corresponds to your desired configuration.
@@ -179,8 +179,8 @@ Run terraform plan with the IAM and Network configuration. After  its execution 
 ```
 terraform apply \
 -var-file ../terraform-oci-open-lz/commons/content/oci-credentials.tfvars.json \
--var-file ../terraform-oci-open-lz/workload-extensions/oci-lz-ext-ai-services/op02-dig-asst-workload-extension/oci_open_lz_one-oe_identity.auto.tfvars.json \
--var-file ../terraform-oci-open-lz/workload-extensions/oci-lz-ext-ai-services/op02-dig-asst-workload-extension/oci_open_lz_one-oe_network.auto.tfvars.json
+-var-file ../terraform-oci-open-lz/workload-extensions/oci-lz-ext-ai-services/digital_assistant/digital_assistant_identity.auto.tfvars.json \
+-var-file ../terraform-oci-open-lz/workload-extensions/oci-lz-ext-ai-services/digital_assistant/digital_assistant_network.auto.tfvars.json
 ```
 
 
