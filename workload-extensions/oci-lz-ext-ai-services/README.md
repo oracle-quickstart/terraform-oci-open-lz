@@ -3,17 +3,7 @@
 - [**1. Introduction**](#1-introduction)
 - [**2. Design Overview**](#2-design-overview)
 - [**3. Security View**](#3-security-view)
-  - [**3.1 Compartments**](#31-compartments)
-  - [**3.2 Groups**](#32-groups)
-  - [**3.4 Policies**](#34-policies)
 - [**4. Network View**](#4-network-view)
-  - [**4.1 VCNs**](#41-vcns)
-  - [**4.2 Subnets**](#42-subnets)
-  - [**4.3 Route Tables (RTs)**](#43-route-tables-rts)
-  - [**4.4 Security Lists (SLs)**](#44-security-lists-sls)
-  - [**4.5 Gateways**](#45-gateways)
-    - [**4.5.1 Dynamic Routing Gateway (DRGs) Attachments**](#451-dynamic-routing-gateway-drgs-attachments)
-    - [**4.5.2 Service Gateway (SGs)**](#452-service-gateway-sgs)
 - [**5. Runtime View**](#5-runtime-view)
 
 
@@ -110,80 +100,6 @@ The following diagram presents the network structure of the AI Services LZ Exten
 
 
 <img src="diagrams/network.png" width="1000" height="value">
-
-&nbsp; 
-
-### **4.1 VCNs**
-The following table describes the deployed VCNs.
-
-> [!NOTE]
-> A VCN is a customizable, software-defined network that you set up in an Oracle Cloud Infrastructure region. Like traditional data center networks, VCNs give you complete control over your network environment. A VCN can have multiple non-overlapping CIDR blocks that you can change after you create the VCN.
-
-| ID     | OP    | NAME           | OBJECTIVES                         |
-| ------ | ----- | -------------- | ---------------------------------- |
-| VCN.00 | OP#01 | vcn-fra-p-ai-service | Spoke VCN for AI Services |
-
-&nbsp; 
-
-### **4.2 Subnets**
-The following table describes the deployed Subnets.
-
-> [!NOTE]
-> You can segment a VCN into subnets, which can be scoped to a region or to an availability domain. Each subnet consists of a contiguous range of addresses that don't overlap with the other subnets in the VCN. You can change the size of a subnet after creation. A subnet can be public or private.
-
-> [!IMPORTANT]  
-> Digital Assistant AI service require a VCN and subnet to deploy private endpoint
-
-| ID    | OP    | NAME             | OBJECTIVES                |
-| ----- | ----- | ---------------- | ------------------------- |
-| SN.00 | OP#01 | sn-fra-p-ai-service-da | AI service digital assistant subnet |
-
-
-### **4.3 Route Tables (RTs)**
-The following table describes the deployed Route Tables.
-
-> [!NOTE]
-> A collection of RouteRule objects, which are used to route packets based on destination IP to a particular network entity.
- 
-| ID    | OP    | NAME               | OBJECTIVES                            |
-| ----- | ----- | ------------------ | ------------------------------------- |
-| RT.00 | OP#01 | rt-01-p-ai-service-vcn-ep | AI service Digital Assistant subnet route table |
-
-&nbsp; 
-
-### **4.4 Security Lists (SLs)**
-The following table describes the deployed Security Lists (SLs).
-
-> [!NOTE]
-> A security list consists of a set of ingress and egress security rules that apply to all the VNICs in any subnet that the security list is associated with. This means that all the VNICs in a given subnet are subject to the same set of security lists
-
-| ID    | OP    | NAME                | OBJECTIVES                              |
-| ----- | ----- | ------------------- | --------------------------------------- |
-| SL.00 | OP#01 | sl-01-p-ai-service-vcn-da | AI service digital assistant subnet security list |
-
-&nbsp; 
-
-### **4.5 Gateways**
-#### **4.5.1 Dynamic Routing Gateway (DRGs) Attachments**
-The following tables describe the deployed DRG Attachments.
-> [!NOTE]
-> A DRG attachment serves as a link between a DRG and a network resource. A DRG can be attached to a VCN, IPSec tunnel, remote peering connection, or virtual circuit. For more information, see Overview of the Networking Service.
-
-
-| ID      | OP    | NAME                      | OBJECTIVES                                   |
-| ------- | ----- | ------------------------- | -------------------------------------------- |
-| DRGA.00 | OP#02 | ai-service-vcn-p-drg-attachment | DRG Attachment for the AI Service spoke to the hub |
-
-
-#### **4.5.2 Service Gateway (SGs)**
-The following table describes the proposed Service Gateways.
-
-> [!NOTE]
-> A service gateway lets your virtual cloud network (VCN) privately access specific Oracle services without exposing the data to the public internet. No internet gateway or NAT gateway is required to reach those specific services. The resources in the VCN can be in a private subnet and use only private IP addresses.
-
-| ID    | OP    | NAME          | OBJECTIVES           |
-| ----- | ----- | ------------- | -------------------- |
-| SG.00 | OP#01 | sg-fra-p-ai-service | SG in the AI Service VCN. |
 
 &nbsp; 
 
