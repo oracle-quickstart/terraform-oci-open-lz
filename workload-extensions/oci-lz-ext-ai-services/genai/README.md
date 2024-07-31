@@ -7,15 +7,15 @@
   - [**2.1. Compartments**](#21-compartments)
   - [**2.2 Groups**](#22-groups)
   - [**2.3 Policies**](#23-policies)
-- [**4. Run with ORM**](#4-run-with-orm)
-- [**5. Run with Terraform CLI**](#5-run-with-terraform-cli)
-  - [**5.1 Setup Terraform Authentication**](#51-setup-terraform-authentication)
-  - [**5.2 Clone this Git repo to your Machine**](#52-clone-this-git-repo-to-your-machine)
-  - [**5.3 Clone the orchestrator Git repo to your Machine**](#53-clone-the-orchestrator-git-repo-to-your-machine)
-  - [**5.4 Change the Directory to the Terraform Orchestrator Module**](#54-change-the-directory-to-the-terraform-orchestrator-module)
-  - [**5.5 Run ```terraform init```**](#55-run-terraform-init)
-  - [**5.6 Run ```terraform plan```**](#56-run-terraform-plan)
-  - [**5.7 Run ```terraform apply```**](#57-run-terraform-apply)
+- [**3. Run with ORM**](#4-run-with-orm)
+- [**4. Run with Terraform CLI**](#5-run-with-terraform-cli)
+  - [**4.1 Setup Terraform Authentication**](#51-setup-terraform-authentication)
+  - [**4.2 Clone this Git repo to your Machine**](#52-clone-this-git-repo-to-your-machine)
+  - [**4.3 Clone the orchestrator Git repo to your Machine**](#53-clone-the-orchestrator-git-repo-to-your-machine)
+  - [**4.4 Change the Directory to the Terraform Orchestrator Module**](#54-change-the-directory-to-the-terraform-orchestrator-module)
+  - [**4.5 Run ```terraform init```**](#55-run-terraform-init)
+  - [**4.6 Run ```terraform plan```**](#56-run-terraform-plan)
+  - [**4.7 Run ```terraform apply```**](#57-run-terraform-apply)
 
 &nbsp; 
 
@@ -94,7 +94,7 @@ For customizations see the full [policy resource documentation](https://github.c
 
 &nbsp; 
 
-## **4. Run with ORM**
+## **3. Run with ORM**
 
 | STEP  | ACTION                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
 | ----- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -108,23 +108,23 @@ For customizations see the full [policy resource documentation](https://github.c
 
 &nbsp; 
 
-## **5. Run with Terraform CLI**
-### **5.1 Setup Terraform Authentication**
+## **4. Run with Terraform CLI**
+### **4.1 Setup Terraform Authentication**
 For authenticating against the OCI tenancy terraform execute the following [instructions](/commons/content/terraform_authentication.md).
-### **5.2 Clone this Git repo to your Machine**
+### **4.2 Clone this Git repo to your Machine**
 ```
 git clone git@github.com:oracle-quickstart/terraform-oci-open-lz.git
 ```
-### **5.3 Clone the orchestrator Git repo to your Machine**
+### **4.3 Clone the orchestrator Git repo to your Machine**
 Cloning the latest version:
 ```
 git clone git@github.com:oracle-quickstart/terraform-oci-landing-zones-orchestrator.git
 ```
-###  **5.4 Change the Directory to the Terraform Orchestrator Module**
+###  **4.4 Change the Directory to the Terraform Orchestrator Module**
 Change the directory to the *terraform-oci-landing-zones-orchestrator* Terraform orchestrator module.
-### **5.5 Run ```terraform init```**
+### **4.5 Run ```terraform init```**
 Run ```terraform init``` to download all the required external terraform providers and Terraform modules.
-### **5.6 Run ```terraform plan```**
+### **4.6 Run ```terraform plan```**
 Run ```terraform plan``` with the IAM and Network configuration.
 ```
 terraform plan \
@@ -138,7 +138,7 @@ Note that the ```terraform.tfstate``` file is generated in the configuration loc
   
 The ideal scenario regarding the **state file** will be for each configuration to have a corresponding OCI Object Storage location for the state file. For more details on the Terraform state file recommended configuration please refer to the following [documentation](https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/terraformUsingObjectStore.htm).
 
-### **5.7 Run ```terraform apply```**
+### **4.7 Run ```terraform apply```**
 Run terraform plan with the IAM and Network configuration. After  its execution the configured resources will be provisioned or updated on OCI.
 ```
 terraform apply \
