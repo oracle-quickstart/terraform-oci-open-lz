@@ -54,44 +54,6 @@ The following table provides details on the compartments presented above, their 
 | CMP.00 | OP#01 | 0     | cmp-lzp-p-projects-speech-project1 | Holds speech project resources |
 | CMP.00 | OP#01 | 0     | cmp-lzp-p-projects-language-project1 | Holds language project resources |
 | CMP.00 | OP#01 | 0     | cmp-lzp-p-projects-doc-understanding-project1 | Holds document understanding project resources |
-&nbsp; 
-
-### **3.2 Groups**
-The AI Services LZ Extension includes the following groups. 
-
-> [!NOTE]
-> In OCI Identity and Access Management, groups are the links between user accounts and applications.
-
-| ID     | OP    | NAME                       | OBJECTIVES                                  |
-| ------ | ----- | -------------------------- | ------------------------------------------- |
-| GRP.00 | OP#01 | grp-platform-genai-cluster-admins | Group for managing shared genai cluster related resources |
-| GRP.00 | OP#01 | grp-p-platform-genai-cluster-admins | Group for managing production genai cluster related resources |
-| GRP.00 | OP#01 | grp-p-project-genai-admins | Group for managing genai related resources |
-| GRP.00 | OP#01 | grp-p-project-dig-asst-admins | Group for managing digital assistant related resources |
-| GRP.00 | OP#01 | grp-p-project-vision-admins | Group for managing vision related resources |
-| GRP.00 | OP#01 | grp-p-project-speech-admins | Group for managing speech related resources |
-| GRP.00 | OP#01 | grp-p-project-language-admins | Group for managing language related resources |
-| GRP.00 | OP#01 | grp-p-project-doc-understanding-admins | Group for managing document understanding related resources |
-
-&nbsp; 
-
-### **3.4 Policies**
-The AI Services LZ Extension includes the following policies:
-
-> [!NOTE]
-> A Policy is a document that specifies who can access which Oracle Cloud Infrastructure resources that your company has, and how. A policy simply allows a group to work in certain ways with specific types of resources in a particular compartment
-
-| ID     | OP    | NAME                       | OBJECTIVES                                                                                                     |
-| ------ | ----- | -------------------------- | -------------------------------------------------------------------------------------------------------------- |
-| POL.00 | OP#01 | pcy-platform-genai-cluster-admins | Policy granting permissions for administering shared genai cluster related resources to the *grp-platform-genai-cluster-admins* group |
-| POL.00 | OP#01 | pcy-p-platform-genai-cluster-admins | Policy granting permissions for administering prod genai cluster related resources to the *grp-p-platform-genai-cluster-admins* group |
-| POL.00 | OP#01 | pcy-p-project-genai-admins | Policy granting permissions for administering genai related resources to the *grp-p-project-genai-admins* group |
-| POL.00 | OP#01 | pcy-p-project-dig-asst-admins | Policy granting permissions for administering digital assistant related resources to the *grp-p-project-dig-asst-admins* group |
-| POL.00 | OP#01 | pcy-p-project-vision-admins | Policy granting permissions for administering vision related resources to the *grp-p-project-vision-admins* group |
-| POL.00 | OP#01 | pcy-p-project-speech-admins | Policy granting permissions for administering speech related resources to the *grp-p-project-speech-admins* group |
-| POL.00 | OP#01 | pcy-p-project-language-admins | Policy granting permissions for administering language related resources to the *grp-p-project-language-admins* group |
-| POL.00 | OP#01 | pcy-p-project-doc-understanding-admins | Policy granting permissions for administering document understanding related resources to the *grp-p-project-doc-understanding-admins* group |
-
 
 &nbsp; 
 
