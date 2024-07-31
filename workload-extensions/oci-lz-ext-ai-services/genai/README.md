@@ -1,4 +1,4 @@
-# OP.01 - Manage GENAI Landing Zone Extension <!-- omit from toc -->
+# Manage GENAI Landing Zone Extension <!-- omit from toc -->
 
 ## **Table of Contents** <!-- omit from toc -->
 
@@ -24,12 +24,11 @@
 
 |                           |                                                                                                                                                                |
 | ------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **OP. ID**                | OP.01                                                                                                                                                          |
-| **OP. NAME**              | GENAI Landing Zone Extension                                                                                                                                    |
+| **DEPLOYMENT NAME**              | GENAI Landing Zone Extension                                                                                                                                    |
 | **OBJECTIVE**             | Provision OCI GENAI Landing Zone IAM Extensions.                                                                                                    |
 | **TARGET RESOURCES**      | **Security**: Compartments, Groups, Policies</br>                                                      |
 | **IAM CONFIGURATION**     | [genai_identity.auto.tfvars.json](/workload-extensions/oci-lz-ext-ai-services/genai/genai_identity.auto.tfvars.json) |
-| **PRE-ACTIVITIES**        | Execute [OP.00. Deploy OneOE LZ](../../../one-oe/)                                                                                                                                              
+| **PRE-ACTIVITIES**        | Execute [Deploy OneOE LZ](../../../one-oe/)                                                                                                                                              
 | **RUN OPERATION**         | Use [ORM](#4-run-with-orm) or use [Terraform CLI](#5-run-with-terraform-cli).                                                                                  |
 
 
@@ -42,7 +41,7 @@ For configuring and running the OneOE Landing Zone Genai extension Identity Laye
 
 This configuration file covers three categories of resources described in the next sections.
 
-This configuration file requires changes to reference the OCIDs of the OneOE Landing Zone resources which were deployed in [OP.00. Deploy OneOE LZ](../../../one-oe/) step.
+This configuration file requires changes to reference the OCIDs of the OneOE Landing Zone resources which were deployed in [Deploy OneOE LZ](../../../one-oe/) step.
 Search for the values indicated below and replace with the correct OCIDs:
 
 | Resource                  | OCID Text to Replace              | Description                        |
