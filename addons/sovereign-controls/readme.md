@@ -55,7 +55,7 @@ OCI landing zone blueprints address all three types of isolation, meeting any cu
 
 The following diagram illustrates different options for logical isolation, enabled through compartment structures or a multi-tenancy approach.
 
-<img src="https://github.com/oci-landing-zones/terraform-oci-open-lz/blob/content/addons/sovereign-controls/Sovereign.gif" width="600" />
+<img src="https://github.com/oci-landing-zones/terraform-oci-open-lz/blob/content/addons/sovereign-controls/Sovereign.gif" width="1000" />
 
 
 
