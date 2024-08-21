@@ -43,7 +43,25 @@ zero all quota /*/ in tenancy where request.region != 'eu-frankfurt-2'
 Additionally for multi tenancy set-up the [Governance Rules](https://docs.oracle.com/en-us/iaas/Content/General/Concepts/organization_management_overview.htm#governance_rules) in Organizations service can be used to impose restriction on child tenancy
 
 ## Principle 2. Isolation
-An organization should have the assurance that their data remains in the physical and logical environments that they have selected. OCI provides this technical assurance by grouping regions and then separating these groups of regions through strict geographic segmentation and physical and logical network isolation. OCI has multiple realms, including a commercial public cloud realm, an EU Sovereign Cloud realm, and multiple government cloud realms for the US, UK, and Australia. Each customer’s Dedicated Region, Isolated Region, and Alloy deployment are also contained within their own separate realm.
+An organization should have the assurance that their data remains in the physical and logical environments that they have selected.
+
+We can identify different levels of **isolation**: physical isolation, logical isolation, and network traffic isolation.
+
+* **Physical isolation** can be achieved using the various realm options offered by OCI such as Dedicated Regions (DRCC), Isolated Regions (for mission-critical or classified workloads), and Alloy (for cloud service providers).
+* **Logical isolation** can be implemented using compartments and tenancies.
+* **Network isolation** can be achieved by following best practices in network infrastructure, such as using a hub-and-spoke models.
+
+OCI landing zone blueprints address all three types of isolation, meeting any customer requirements.
+
+The following diagram illustrates different options for logical isolation, enabled through compartment structures or a multi-tenancy approach.
+
+<img src="https://github.com/oci-landing-zones/terraform-oci-open-lz/blob/content/addons/sovereign-controls/Sovereign.gif" width="600" />
+
+
+
+Customers access cloud resources and services through their cloud tenancy. A cloud tenancy is a secure and isolated partition of OCI, and it only exists in a single realm. Within this tenancy, customers can access services and deploy workloads across all regions within that realm by default, although customers can set policies to restrict this access. However, by design, customers can only access regions within the realm of their tenancy.
+
+OCI provides this technical assurance by grouping regions and then separating these groups of regions through strict geographic segmentation and physical and logical network isolation. OCI has multiple realms, including a commercial public cloud realm, an EU Sovereign Cloud realm, and multiple government cloud realms for the US, UK, and Australia. Each customer’s Dedicated Region, Isolated Region, and Alloy deployment are also contained within their own separate realm.
 ## Principle 3. Access Management
 Organizations can use the following core OCI services to implement a comprehensive approach to access
 management:
