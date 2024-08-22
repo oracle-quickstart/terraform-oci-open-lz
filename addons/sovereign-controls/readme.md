@@ -4,7 +4,7 @@
 - [Summary](#summary)
 - [Principle 1. Location](#principle-1-location)
   - [Policies](#policies)
-  - [Quotas](#quotas)
+  - [Quota Policies](#quota-policies)
 - [Principle 2. Isolation](#principle-2-isolation)
 - [Principle 3. Access Management](#principle-3-access-management)
   - [IAM](#iam)
@@ -33,13 +33,19 @@ Policies can be used to restrict permissions to a specific region by restricting
 ```
 Allow group str-admins to manage all-resources in tenancy where request.region = 'str'
 ```
-A policy limit like this can be applied to any required policy.
+A policy limit like this can be applied to any required policy. Note IAM related permisions need to be always assigned in the Home Region. If it's required to managed multiple segregated location with different regulations it's recommended to consider Child Tenancy set-up for different boundaries.
 
-### Quotas
-Use Compartment Quotas in Oracle Cloud Infrastructure to control resource consumption/creation based on a region within compartments/Tenancy. Quotas limit the number of resources that can be created in a compartment/tenancy based on the region. In this example the customer wants to make sure there's no quota available in the other eu-madrid-2 (VLL for short) region.
+### Quota Policies
+Use Quota Policies in Oracle Cloud Infrastructure to control resource consumption/creation based on a region within compartments/Tenancy. Quota Policies limit the number of resources that can be created in a compartment/tenancy based on the region. In this example the customer wants to make sure there's no quota available in the other eu-madrid-2 (VLL for short) region.
 ```
-zero all quota /*/ in tenancy where request.region != 'eu-frankfurt-2'
+zero compute-core quota /*/ in tenancy where request.region != 'eu-frankfurt-2'
+zero database quota /*/ in tenancy where request.region != 'eu-frankfurt-2'
+zero vcn quota /*/ in tenancy where request.region != 'eu-frankfurt-2'
+zero filesystem quota /*/ in tenancy where request.region != 'eu-frankfurt-2'
+zero object-storage quota /*/ in tenancy where request.region != 'eu-frankfurt-2'
 ```
+The provided list of Quota Policies is not exhausitve and includes only the most common services used for storing data. See [Available Quota by Service](https://docs.oracle.com/en-us/iaas/Content/Quotas/Concepts/resourcequotas_topic-Available_Quotas_by_Service.htm) for a full list.
+
 Additionally for multi tenancy set-up the [Governance Rules](https://docs.oracle.com/en-us/iaas/Content/General/Concepts/organization_management_overview.htm#governance_rules) in Organizations service can be used to impose restriction on child tenancy
 
 ## Principle 2. Isolation
