@@ -6,7 +6,7 @@ Welcome to the **OCI Open LZ Workload Extensions**.
 
 A workload extension is an **OCI solution design ready to receive specific workloads** on top of a landing zone. Each of these extensions follows the [tailored landing zone approach](/landing-zones/tailored_landing_zones/tailored_landing_zones.md) and has a design and runtime, ready for deployment:
 
-- In terms of **design**, each solution will contain the security, network, and runtime views. 
+- In terms of **design**, each solution will contain the IAM, security, network, and runtime views. 
 
 - In terms of **running**, each solution will have a runtime view with **IaC configurations**, pluggable to an existing landing zone, and ready to be deployed. Please note that the workload elements (VMs, Databases, etc.) are not deployed.
 
