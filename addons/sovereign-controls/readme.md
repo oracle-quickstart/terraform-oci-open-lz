@@ -14,7 +14,7 @@
   - [Vulnerability scanning](#vulnerability-scanning)
 - [Principle 4. Personal Requirements](#principle-4-personal-requirements)
 - [Principle 5. Encryption](#principle-5-encryption)
-- [Principle 6. Data Access Requests](#principle-6-data-access-requests)
+- [Principle 6. Cybersecurity](#principle-6-cybersecurity)
 
 ## Summary
 In the following sections in order to simplify the example of Sovereign LZ we take an example of a German customer who wants to implement Sovereign controls, however these principles can be used by any customer to meet local regulations.
@@ -36,7 +36,7 @@ Allow group str-admins to manage all-resources in tenancy where request.region =
 A policy limit like this can be applied to any required policy. Note IAM related permisions need to be always assigned in the Home Region. If it's required to managed multiple segregated location with different regulations it's recommended to consider Child Tenancy set-up for different boundaries.
 
 ### Quota Policies
-Use Quota Policies in Oracle Cloud Infrastructure to control resource consumption/creation based on a region within compartments/Tenancy. Quota Policies limit the number of resources that can be created in a compartment/tenancy based on the region. In this example the customer wants to make sure there's no quota available in the other eu-madrid-2 (VLL for short) region.
+Use Quota Policies in Oracle Cloud Infrastructure to control resource consumption/creation based on a region within compartments/Tenancy. Quota Policies limit the number of resources that can be created in a compartment/tenancy based on the region. In this example the customer wants to make sure there's no quota available in the regions other than eu-frankfurt-2 (STR for short) region.
 ```
 zero compute-core quota /*/ in tenancy where request.region != 'eu-frankfurt-2'
 zero database quota /*/ in tenancy where request.region != 'eu-frankfurt-2'
@@ -53,9 +53,9 @@ An organization should have the assurance that their data remains in the physica
 
 We can identify different levels of **isolation**: physical isolation, logical isolation, and network traffic isolation.
 
-* **Physical isolation** can be achieved using the various realm options offered by OCI such as Dedicated Regions (DRCC), Isolated Regions (for mission-critical or classified workloads), and Alloy (for cloud service providers).
+* **Physical isolation** can be achieved using the various dedicated cloud deployment options such as Dedicated Regions (DRCC), Isolated Regions (for mission-critical or classified workloads), and Alloy (for partners building their own cloud solutions).
 * **Logical isolation** can be implemented using compartments and tenancies.
-* **Network isolation** can be achieved by following best practices in network infrastructure, such as using a hub-and-spoke models.
+* **Network isolation** can be achieved by following best practices in network infrastructure, such as using a hub-and-spoke models. Customer networking is done in the Data Plane with the option to define required networking gateways like Internet Gateway and NAT Gateway. Data Plane is separate from Control Plane used for managing OCI with it's own separate networking managed by Oracle.
 
 OCI landing zone blueprints address all three types of isolation, meeting any customer requirements.
 
@@ -185,9 +185,8 @@ set compute-core quota standard-e4-core-count to 480 in tenancy where request.re
 set compute-core quota standard-e3-core-ad-count to 480 in tenancy where request.region = 'str'
 ```
 
-## Principle 6. Data Access Requests
-How Oracle respons to Data Access Requests
-TODO: Damien
+## Principle 6. Cybersecurity
+
 
 
 &nbsp; 
