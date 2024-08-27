@@ -17,6 +17,9 @@
 - [Principle 6. Cybersecurity](#principle-6-cybersecurity)
 
 ## Summary
+The Sovereign Controls addons consists of two documents:  
+- This document, covering the Sovereign principles that can be used to meet local regulatory requirements.
+- The [implementation guide](./implementation.md) covering the steps to extend the existing LZ with the Sovereign Controls addon.
 In the following sections in order to simplify the example of Sovereign LZ we take an example of a German customer who wants to implement Sovereign controls, however these principles can be used by any customer to meet local regulations.
 
 ## Principle 1. Location
@@ -49,13 +52,15 @@ The provided list of Quota Policies is not exhausitve and includes only the most
 Additionally for multi tenancy set-up the [Governance Rules](https://docs.oracle.com/en-us/iaas/Content/General/Concepts/organization_management_overview.htm#governance_rules) in Organizations service can be used to impose restriction on child tenancy
 
 ## Principle 2. Isolation
+Oracle Cloud offering is at a high level segregated to the Control Plane and the Data Plane. The Control Plane is managed by Oracle and is used for managing and orchestrating underlaying infrastructure using Console or APIs. The Control Planes ensure logical separation between different customers. The Data Plane is a result of the user configuration of the services in the Control Plane and defines virtual resrouces like Networking, Database, Compute instances.
+
 An organization should have the assurance that their data remains in the physical and logical environments that they have selected.
 
-We can identify different levels of **isolation**: physical isolation, logical isolation, and network traffic isolation.
+We can identify different levels of **isolation**: physical isolation, logical isolation, and network isolation.
 
-* **Physical isolation** can be achieved using the various dedicated cloud deployment options such as Dedicated Regions (DRCC), Isolated Regions (for mission-critical or classified workloads), and Alloy (for partners building their own cloud solutions).
-* **Logical isolation** can be implemented using compartments and tenancies.
-* **Network isolation** can be achieved by following best practices in network infrastructure, such as using a hub-and-spoke models. Customer networking is done in the Data Plane with the option to define required networking gateways like Internet Gateway and NAT Gateway. Data Plane is separate from Control Plane used for managing OCI with it's own separate networking managed by Oracle.
+* **Physical isolation** can be achieved using the various dedicated cloud deployment options such as Dedicated Regions (DRCC), Isolated Regions (for mission-critical or classified workloads), and Alloy (for partners building their own cloud solutions). Physical isolation applies to both Data and Control Planes.
+* **Logical isolation** each customers gets their own dedicated Data Plane, which can be further separated using compartments and tenancies.
+* **Network isolation** can be achieved by following best practices in network infrastructure, such as using a hub-and-spoke models. Customer networking is done in the Data Plane with the option to define required networking gateways like Internet Gateway and NAT Gateway.
 
 OCI landing zone blueprints address all three types of isolation, meeting any customer requirements.
 
