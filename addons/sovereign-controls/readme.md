@@ -79,7 +79,6 @@ management:
 - The Identity and Access Management (IAM) - provides centralized access control and identity
 - Vault Key Management - provides secure access to secrets and keys.
 - The Audit service logs - provides visibility into all actions performed in the cloud.
-- Access Governance - identity governance and administration (IGA solution that delivers insights-based access reviews, identity analytics, and intelligence capabilities
 - Cloud Guard and Security Zones - work together to define and enforce security policies, and take corrective action when issues are detected.
 
 ### IAM
@@ -92,15 +91,33 @@ These resources are key building blocks in [One-OE landing zone](https://github.
 
 In One-OE we include concepts as Segregation of duties and Isolation of resources. These [security controls](https://github.com/oracle-quickstart/terraform-oci-open-lz/tree/master/one-oe/design#12-vision) allow customer to start a cloud journey with a set of best practices that can be deployed within a few minutes.
 
+TODO:
+- investigate MFA for local users
+
+### Vault Key Management
+TODO:
+- default vault with software encryption keys already for all LZs
+- explain options for other vault types and keys
+- recommend set-up of Private Vault as OCI alternative
+- explain External KMS (verify orchestrator support)
+- add link for pricing
+
+https://blogs.oracle.com/cloud-infrastructure/post/oracle-sovereign-cloud-solutions-oci-external-kms
 
 ### Audit Service logs
 For different legal requlations it might be required to keep access logs for a certain period of time. One-OE out of box sets-up empty bucket for storing logs. This bucket can be additionaly configured with [Data Retention Rules](https://docs.oracle.com/en-us/iaas/Content/Object/Tasks/usingretentionrules.htm) that can be modified to a specific period as required. Data Retention Rules provide attestation that files haven't been modified since creation and prevents their removal until retention period expires.
-### Access Governance
-???
+
+TODO:
+- add configuration in json for retention rules
+- add link to the pricing for object storage
+
 ### Cloud Guard and Security Zones
 Cloud Guard is security posture management service. It allows to set-up preemptive and remedial actions if security policies are violated. One-OE comes with pre-configured Cloud Guard for common rules and implements Security zones to implement parts of CIS security controls.
 
 Security Zones are set-up by default in all Standard Landing Zones without requiring modifications for Sovereign Landing Zone addon.
+
+TODO:
+- take out all recipes and link them to other documentation instead
 
 **RECIPE 1**
 
@@ -179,6 +196,9 @@ Oracle Cloud Infrastructure (OCI) Vulnerability Scanning Service gives teams the
 Vulnerability scannig fully supports Oracle Linux, CentOS, Ubuntu with partial support for Windows. In case of large number of Windows instances it's recommended to use additional endpoint security solution. Vulnerability scanning uses NVD, OVAL, CIS as sources for common vulnerabilities. It's not recommend to use Vulnerability Scanning in Virtual Machine DB Systems as they are closely monitored by other services are contain custom patches for high performance and availability instead follow [Updating DB Systems](https://docs.oracle.com/iaas/dbcs/doc/update-db-system.html) guide.
 
 Vulnerability scanning service is deployed in all Standard Landing Zones without requiring any customization for Sovereing Landing zone addon.
+
+### Cloud Guard Instance security
+https://www.oracle.com/security/cloud-security/cloud-guard/instance-security/
 
 ## Principle 4. Personal Requirements
 Oracle Cloud has a set of different cloud offerings including but not limited to [Public Cloud](https://www.oracle.com/cloud/public-cloud-regions/), [Oracle Alloy](https://www.oracle.com/cloud/alloy/), [EU Sovereign Cloud](https://www.oracle.com/cloud/eu-sovereign-cloud/), [OCI Dedicated Region](https://www.oracle.com/cloud/cloud-at-customer/dedicated-region/). Each of these have different contractual requirements for the operating personal maintaing services and providing support. For example in the case of EU Sovereign Cloud the realm is operated and support is provided by EU residennts employed by european Oracle legal entity to comply with GDPR requirements.
