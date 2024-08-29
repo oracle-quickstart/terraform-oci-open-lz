@@ -17,7 +17,7 @@
 - [Principle 6. Cybersecurity](#principle-6-cybersecurity)
 
 ## Summary
-The Sovereign Controls addons consists of two documents:  
+The Sovereign Controls addons consists of two documents:
 - This document, covering the Sovereign principles that can be used to meet local regulatory requirements.
 - The [implementation guide](./implementation.md) covering the steps to extend the existing LZ with the Sovereign Controls addon.
 In the following sections in order to simplify the example of Sovereign LZ we take an example of a German customer who wants to implement Sovereign controls, however these principles can be used by any customer to meet local regulations.
@@ -83,7 +83,7 @@ management:
 - Cloud Guard and Security Zones - work together to define and enforce security policies, and take corrective action when issues are detected.
 
 ### IAM
-Identity and Access Managment in OCI is controlled by a few key resources: 
+Identity and Access Managment in OCI is controlled by a few key resources:
 - Compartments are logical separation of resroucers and can be nested.
 - Policies bind permission to a group in a specific compartment.
 - Groups are collections of users within Identity Domain.
@@ -94,11 +94,13 @@ In One-OE we include concepts as Segregation of duties and Isolation of resource
 
 
 ### Audit Service logs
-For different legal requlations it might be required to keep access logs for a certain period of time. One-OE out of box sets-up empty bucket for storing logs. This bucket can be additionaly configured with [Data Retention Rules](https://docs.oracle.com/en-us/iaas/Content/Object/Tasks/usingretentionrules.htm) that can be modified to a specific period as required. Data Retention Rules provide attestation that files haven't been modified since creation and prevents their removal until retention period expires. 
+For different legal requlations it might be required to keep access logs for a certain period of time. One-OE out of box sets-up empty bucket for storing logs. This bucket can be additionaly configured with [Data Retention Rules](https://docs.oracle.com/en-us/iaas/Content/Object/Tasks/usingretentionrules.htm) that can be modified to a specific period as required. Data Retention Rules provide attestation that files haven't been modified since creation and prevents their removal until retention period expires.
 ### Access Governance
 ???
 ### Cloud Guard and Security Zones
 Cloud Guard is security posture management service. It allows to set-up preemptive and remedial actions if security policies are violated. One-OE comes with pre-configured Cloud Guard for common rules and implements Security zones to implement parts of CIS security controls.
+
+Security Zones are set-up by default in all Standard Landing Zones without requiring modifications for Sovereign Landing Zone addon.
 
 **RECIPE 1**
 
@@ -118,7 +120,7 @@ Cloud Guard is security posture management service. It allows to set-up preempti
 | Require Encryption | File systems in the security zone must use a customer-managed master encryption key in the Vault service. They can't use the default encryption key managed by Oracle.         |
 
 
-**RECIPE 3**	
+**RECIPE 3**
 | category                       | description                                                                                        |
 | ------------------------------ | -------------------------------------------------------------------------------------------------- |
 | Include                        | RECIPE 1 Statements                                                                                |
@@ -129,7 +131,7 @@ Cloud Guard is security posture management service. It allows to set-up preempti
 | Restrict Resource Movement     | You can't move a subnet in a security zone to a compartment that is not in the same security zone. |
 
 
-**RECIPE 4**	
+**RECIPE 4**
 
 | category           | description                                                                   |
 | ------------------ | ----------------------------------------------------------------------------- |
@@ -172,6 +174,11 @@ Cloud Guard is security posture management service. It allows to set-up preempti
 | Restrict Resource Movement    | You can't move a mount target in the security zone to a compartment that is not in the same security zone.                       |
 
 ### Vulnerability scanning
+Oracle Cloud Infrastructure (OCI) Vulnerability Scanning Service gives teams the confidence to develop their code on instances with the latest security patches and helps ensure a smooth transition to building production code. Combined with Oracle Cloud Guard, operations teams gain a unified view of all instances to quickly remediate any open ports or patch unsafe packages discovered by the Vulnerability Scanning Service.
+
+Vulnerability scannig fully supports Oracle Linux, CentOS, Ubuntu with partial support for Windows. In case of large number of Windows instances it's recommended to use additional endpoint security solution. Vulnerability scanning uses NVD, OVAL, CIS as sources for common vulnerabilities.
+
+Vulnerability scanning service is deployed in all Standard Landing Zones without requiring any customization for Sovereing Landing zone addon.
 
 ## Principle 4. Personal Requirements
 Oracle Cloud has a set of different cloud offerings including but not limited to [Public Cloud](https://www.oracle.com/cloud/public-cloud-regions/), [Oracle Alloy](https://www.oracle.com/cloud/alloy/), [EU Sovereign Cloud](https://www.oracle.com/cloud/eu-sovereign-cloud/), [OCI Dedicated Region](https://www.oracle.com/cloud/cloud-at-customer/dedicated-region/). Each of these have different contractual requirements for the operating personal maintaing services and providing support. For example in the case of EU Sovereign Cloud the realm is operated and support is provided by EU residennts employed by european Oracle legal entity to comply with GDPR requirements.
@@ -185,16 +192,16 @@ Confidential computing allows encryption of data in use, utilizing new capabilit
 
 Confidential computing can be enforced using quotas
 ```
-zero standard1-core-count quotas in tenancy where request.region = 'str'
-set compute-core quota standard-e4-core-count to 480 in tenancy where request.region = 'str'
-set compute-core quota standard-e3-core-ad-count to 480 in tenancy where request.region = 'str'
+zero standard1-core-count quotas in tenancy where request.region != 'eu-frankfurt-2'
+set compute-core quota standard-e4-core-count to 480 in tenancy where request.region != 'eu-frankfurt-2'
+set compute-core quota standard-e3-core-ad-count to 480 in tenancy where request.region != 'eu-frankfurt-2'
 ```
 
 ## Principle 6. Cybersecurity
 
 
 
-&nbsp; 
+&nbsp;
 
 # License <!-- omit from toc -->
 
