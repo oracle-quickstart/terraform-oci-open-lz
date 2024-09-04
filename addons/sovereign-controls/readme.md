@@ -22,6 +22,9 @@ The Sovereign Controls addons consists of two documents:
 - The [implementation guide](./implementation.md) covering the steps to extend the existing LZ with the Sovereign Controls addon.
 In the following sections in order to simplify the example of Sovereign LZ we take an example of a German customer who wants to implement Sovereign controls, however these principles can be used by any customer to meet local regulations.
 
+TODO:
+- add link to principles document and explain we cover only the ones relevant for LZ
+
 ## Principle 1. Location
 [OCI *realms*](https://docs.oracle.com/en-us/iaas/Content/General/Concepts/regions.htm) are physical boundary of a cloud offering acompanied by possible different operations team and possibly a part of a different Oracle legal entities depending on the offering. *Realms* consist of multiple *regions*, dedicated networking and control plane resulting in a complete isolation of different realms. Regions within a realm are be located in multiple physical locations. Each *region* has one or more *availability domains (AD)*. AD is bound to a specific data center. When customer subscribes to OCI Cloud a new [*tenancy*](https://docs.oracle.com/en/cloud/foundation/cloud_architecture/governance/tenancy.html) is created in a contractually agreed *realm*. A _tenant_ is logical boundary creating isolated evnironment for each customer. A _tenant_ is by default subscribed only to the [Home Region](https://docs.oracle.com/en-us/iaas/Content/Identity/Tasks/managingregions.htm), however with required policies *Tenancy* can subscribe to all available regions within the realm (subject to service limits). This can be controlled using Sovereign Landing Zone Addon using policies below. In our example of a German customer with mandate to keep data within EU Sovereign Cloud eu-frankfurt-2 region and can limit their tenancy data locations to this region and prevent storing data in any other region.
 
@@ -200,15 +203,16 @@ Vulnerability scanning service is deployed in all Standard Landing Zones without
 ### Cloud Guard Instance security
 https://www.oracle.com/security/cloud-security/cloud-guard/instance-security/
 
-## Principle 4. Personal Requirements
-Oracle Cloud has a set of different cloud offerings including but not limited to [Public Cloud](https://www.oracle.com/cloud/public-cloud-regions/), [Oracle Alloy](https://www.oracle.com/cloud/alloy/), [EU Sovereign Cloud](https://www.oracle.com/cloud/eu-sovereign-cloud/), [OCI Dedicated Region](https://www.oracle.com/cloud/cloud-at-customer/dedicated-region/). Each of these have different contractual requirements for the operating personal maintaing services and providing support. For example in the case of EU Sovereign Cloud the realm is operated and support is provided by EU residennts employed by european Oracle legal entity to comply with GDPR requirements.
-
 ## Principle 5. Encryption
 All data on OCI is encrypted out of box by Oracle managed encryption keys. It's recommended that users instead create and manage their own keys. There's a set of services allowing exactly that. One-OE comes out of box with Vault services configured to store keys in a software based key management system (KMS), however for enhanced security and increased regulatory requirements Sovereign addon uses a dedicated virtual partition inside HMS using hardware encryption. Additionaly users have option to use completely dedicated HMS appliance or use 3rd party services with combination of externally managed encryption keys.
 
 The customer managed encryption keys are enforced using security zones as part of One-OE
 
 Confidential computing allows encryption of data in use, utilizing new capabilities of AMD EPYC™ processors. This additionally increases security as data and applications are encrypted using a per-VM encryption key generated during the VM creation and resides solely in the AMD Secure Processor. Provides high performance while protecting data in-use with minimal performance impact
+
+TODO:
+- explain data in transit, use, rest
+- explain all trafic in transit, rest is encrypted, explain different virtualization layers
 
 Confidential computing can be enforced using quotas
 ```
