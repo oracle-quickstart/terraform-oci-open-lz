@@ -12,7 +12,7 @@
 ## **1. Introduction**
 Welcome to the **AI Services Landing Zone Extension**.
 
-The AI Services Landing Zone (LZ) Extension is a secure cloud environment, designed with best practices to simplify the onboarding of AI Services workloads and enable the continuous operations of their cloud resources. This reference architecture provides an automated landing zone **configuration**.
+The AI Service Landing Zone (LZ) Extension is a secure cloud environment, designed with best practices to simplify the onboarding of AI Services workloads and enable the continuous operations of their cloud resources. This reference architecture provides an automated landing zone **configuration**.
 
 &nbsp; 
 
