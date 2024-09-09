@@ -6,7 +6,7 @@
 &nbsp; 
 
 ## **1. Introduction**
-Welcome to the **OCVS Landing Zone Extension**.
+Welcome to the **AI Services Landing Zone Extension**.
 
 The AI Services Landing Zone (LZ) Extension is a secure cloud environment, designed with best practices to simplify the onboarding of AI Services workloads and enable the continuous operations of their cloud resources. This reference architecture provides an automated landing zone **configuration**.
 
@@ -14,7 +14,7 @@ The AI Services Landing Zone (LZ) Extension is a secure cloud environment, desig
 
 ## **2. Design Overview**
 
-This workload extension uses the [One-OE](/blueprints/one-oe/readme.md) Blueprint as the reference Landing Zone and guides the deployment of OCVS on top of it.
+This workload extension uses the [One-OE](/blueprints/one-oe/readme.md) Blueprint as the reference Landing Zone and guides the deployment of AI services on top of it.
 
 
 <img src="diagrams/compartments.png" width="1000" height="auto">
