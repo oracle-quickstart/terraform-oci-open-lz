@@ -41,8 +41,6 @@
 
 For configuring and running the OneOE Landing Zone Digital Assistant extension Identity Layer use the following JSON file: [digital_assistant_identity.auto.tfvars.json](/workload-extensions/oci-lz-ext-ai-services/digital_assistant/digital_assistant_identity.auto.tfvars.json) You can customize this configuration to fit your exact OCI IAM topology.
 
-This configuration file covers three categories of resources described in the next sections.
-
 This configuration file requires changes to reference the OCIDs of the OneOE Landing Zone resources which were deployed in [Deploy OneOE LZ](../../../one-oe/) step.
 Search for the values indicated below and replace with the correct OCIDs:
 
