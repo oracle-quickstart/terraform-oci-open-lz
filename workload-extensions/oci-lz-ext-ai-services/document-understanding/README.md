@@ -70,7 +70,7 @@ Using this extension requires choosing the right platform for the use cases. Ext
 As part of the deployment the following groups are created in the [Default Identity Domain](https://docs.oracle.com/en-us/iaas/Content/Identity/domains/overview.htm):
 | Group                      | Description                                                               |
 | -------------------------- | ------------------------------------------------------------------------- |
-| grp-p-project-document-understanding-admins | Members of the group are able to administer document-understanding service project and accompained services |
+| grp-p-project-document-admins | Members of the group are able to administer document-understanding service project and accompained services |
 
 For customizations see the full [group resoruce documentation](https://github.com/oracle-quickstart/terraform-oci-cis-landing-zone-iam/tree/main/groups)
 
@@ -80,7 +80,7 @@ For customizations see the full [group resoruce documentation](https://github.co
 As part of the deploymnet the following policies are created:
 | Policy                     | Description                                             | Manage resources             | Use resources                   | Inspect resources |
 | -------------------------- | ------------------------------------------------------- | ---------------------------- | ------------------------------- | ----------------- |
-| pcy-p-project-document-understanding-admins | Grants group *grp-p-project-document-understanding-admins* perminssions. |  | ai-service-document-family, object family |      |
+| pcy-p-project-document-admins | Grants group *grp-p-project-document-understanding-admins* perminssions. |  | ai-service-document-family, object family |      |
 
 Policies contain compartment paths. The paths can change based on the modification in the previous [Compartments](#21-compartments) section. The paths need to be updated following the OCI [Policies and Compartment hierarchy](https://docs.oracle.com/en-us/iaas/Content/Identity/Concepts/policies.htm#hierarchy).
 
