@@ -1,4 +1,4 @@
-# Manage LangDocument Understanding Service Landing Zone Extension <!-- omit from toc -->
+# Manage Document Understanding Service Landing Zone Extension <!-- omit from toc -->
 
 ## **Table of Contents** <!-- omit from toc -->
 
