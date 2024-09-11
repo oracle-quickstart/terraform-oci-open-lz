@@ -28,7 +28,7 @@ Below are the  **deployment guide** to provision AI services landing zone extens
 
 | DEPLOYMENT                                         | DEPLOYMENT SCENARIOS DESCRIPTION                                                                                                                  | TIME EFFORTS                          |
 | ------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------- |
-| **[One OE LZ](../../one-oe/)**                   | **Deploy One-OE Landing ZOne**. Cover Core network resources (Hub VCN), Core IAM resources (compartments, group, policies), and security services.          | **< 1h**                              |
+| **[One-OE LZ](../../one-oe/)**                   | **Deploy One-OE Landing ZOne**. Cover Core network resources (Hub VCN), Core IAM resources (compartments, group, policies), and security services.          | **< 1h**                              |
 | **[GenAI](./genai/)**                            | **Deploy Genai extension**. Include AI service IAM resources (Compartment, Groups, Policies) | **< 15m**                             |
 | **[Digital Assistant](./digital_assistant/)**            | **Deploy Digital Assistant extension**. Include AI service IAM resources (Compartment, Groups, Policies) and optional network resources (Spokes VCNs, Table Routes, Security Lists) |  **< 30m** (excluding deployment time) |
 | **[Language](./language/)**                            | **Deploy Language Service extension**. Include AI service IAM resources (Compartment, Groups, Policies) | **< 15m**                             |
