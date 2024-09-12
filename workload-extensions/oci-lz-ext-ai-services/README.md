@@ -34,7 +34,7 @@ Below are the  **deployment guide** to provision AI services landing zone extens
 | **[One-OE LZ](../../one-oe/)**                   | **Deploy One-OE Landing ZOne**. Cover Core network resources (Hub VCN), Core IAM resources (compartments, group, policies), and security services.          | **< 1h**                              |
 
 > [!NOTE]
-> Step 2 : After successfully deploying the One-OE Landing Zone, select the AI services required from the list below. Each service includes the configuration which holds compartments, groups, policies and networks which integrates with the base ONE-OE landing zone. 
+> Step 2 : After successfully deploying the One-OE Landing Zone, select the required AI services from the list below. Each service includes the configuration which holds compartments, groups, policies and networks which integrates with the base ONE-OE landing zone. 
 
 | DEPLOYMENT                                         | DEPLOYMENT SCENARIOS DESCRIPTION                                                                                                                  | TIME EFFORTS                          |
 | ------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------- |
