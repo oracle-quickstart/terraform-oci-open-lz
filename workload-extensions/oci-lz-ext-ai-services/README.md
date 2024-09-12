@@ -28,7 +28,7 @@ Below are the  **deployment guide** to provision AI services landing zone extens
 
 > [!NOTE]
 > Step 1 : One-OE Landing Zone
-The One-OE Landing Zone serves as the foundational setup for all workloads. It covers essential IAM, network and security configurations. This deployment is necessary to create a secure and scalable environment for AI services. Ensure this base deployment is completed first before proceeding with any AI-specific extensions.
+>The One-OE Landing Zone serves as the foundational setup for all workloads. It covers essential IAM, network and security configurations. This deployment is necessary to create a secure and scalable environment for AI services. Ensure this base deployment is completed first before proceeding with any AI-specific extensions.
 
 | DEPLOYMENT                                         | DEPLOYMENT SCENARIOS DESCRIPTION                                                                                                                  | TIME EFFORTS                          |
 | ------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------- |
