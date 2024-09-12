@@ -27,16 +27,14 @@ This workload extension uses the [One-OE](/blueprints/one-oe/readme.md) Blueprin
 Below are the  **deployment guide** to provision AI services landing zone extension: 
 
 > [!NOTE]
-> Step 1 : One-OE Landing Zone
->The One-OE Landing Zone serves as the foundational setup for all workloads. It covers essential IAM, network and security configurations. This deployment is necessary to create a secure and scalable environment for AI services. Ensure this base deployment is completed first before proceeding with any AI-specific extensions.
+> Step 1 : The One-OE Landing Zone serves as the foundational setup for all workloads. It covers essential IAM, network and security configurations. This deployment is necessary to create a secure and scalable environment for AI services. Ensure this base deployment is completed first before proceeding with any AI-specific extensions.
 
 | DEPLOYMENT                                         | DEPLOYMENT SCENARIOS DESCRIPTION                                                                                                                  | TIME EFFORTS                          |
 | ------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------- |
 | **[One-OE LZ](../../one-oe/)**                   | **Deploy One-OE Landing ZOne**. Cover Core network resources (Hub VCN), Core IAM resources (compartments, group, policies), and security services.          | **< 1h**                              |
 
 > [!NOTE]
-> Step 2 : AI Service Extensions
-After successfully deploying the One-OE Landing Zone, select the AI services required from the list below. Each service includes the configuration which holds compartments, groups, policies and networks which integrates with the base ONE-OE landing zone. 
+> Step 2 : After successfully deploying the One-OE Landing Zone, select the AI services required from the list below. Each service includes the configuration which holds compartments, groups, policies and networks which integrates with the base ONE-OE landing zone. 
 
 | DEPLOYMENT                                         | DEPLOYMENT SCENARIOS DESCRIPTION                                                                                                                  | TIME EFFORTS                          |
 | ------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------- |
