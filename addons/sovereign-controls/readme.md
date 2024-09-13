@@ -111,8 +111,8 @@ We recommend the **customer-managed** option for encryption, as it provides grea
 >    
 >**2.Private Vault**: Private Vault is a single-tenant encryption service that stores keys in a dedicated HSM partition with isolated cores specifically for your tenancy.
 >Both Vault options allow you to create master encryption keys stored in one of the following ways:
-    * **HSM-Protected**: All cryptographic operations and key storage are performed within the HSM.
-    * **Software-Protected**: Cryptographic operations and key storage occur on a bare metal server, with keys secured at rest using a root key from the HSM.
+>* **HSM-Protected**: All cryptographic operations and key storage are performed within the HSM.
+>* **Software-Protected**: Cryptographic operations and key storage occur on a bare metal server, with keys secured at rest using a root key from the HSM.
 >    
 >**3.Dedicated KMS**: Dedicated KMS provides a single-tenant HSM partition as a service, offering a fully isolated environment for key storage and management. The main distinction from Private Vault is      the level of control over the HSM partitions.
 >    
