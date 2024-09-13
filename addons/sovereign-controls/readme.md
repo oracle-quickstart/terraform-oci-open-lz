@@ -123,7 +123,7 @@ Selecting the appropriate OCI KMS offering for your organization depends on your
 * **Compliance Requirements**: If your organization needs to store encryption keys on-premises, OCI External KMS may be a suitable choice.
 * **Cost**: OCI Virtual Vault is the most cost-effective option for customer-managed encryption. In contrast, OCI Dedicated KMS and OCI External KMS are more expensive but offer enhanced control and compliance capabilities.
 
-By default, all OCI Landing Zones use Virtual Vault with Software keys for cost efficiency, which is sufficient to meet CIS requirements. For sovereign customers, we recommend enhancing security by configuring either Dedicated KMS or External KMS.To read more about this topics check this [article](https://blogs.oracle.com/cloudsecurity/post/key-management-key-to-protecting-data-in-oracle-cloud)
+By default, all OCI Landing Zones use Virtual Vault with Software keys for cost efficiency, which is sufficient to meet CIS requirements. For sovereign customers, we recommend enhancing security by configuring either Dedicated KMS or External KMS. To read more about this topics check this [article](https://blogs.oracle.com/cloudsecurity/post/key-management-key-to-protecting-data-in-oracle-cloud)
 
 TODO:
 - default vault with software encryption keys already for all LZs
