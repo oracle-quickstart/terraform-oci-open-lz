@@ -18,12 +18,10 @@
 
 ## Summary
 The Sovereign Controls addons consists of two documents:
-- This document, covering the Sovereign principles that can be used to meet local regulatory requirements.
+- **This** document, an implementation of [Oracle Cloud Infrastructure
+Sovereign Cloud Principles](https://docs.oracle.com/en-us/iaas/Content/Resources/Assets/whitepapers/oracle-sovereign-cloud-principles.pdf) document, covering the Sovereign principles that can be used to meet local regulatory requirements using Landing Zone.
 - The [implementation guide](./implementation.md) covering the steps to extend the existing LZ with the Sovereign Controls addon.
 In the following sections in order to simplify the example of Sovereign LZ we take an example of a German customer who wants to implement Sovereign controls, however these principles can be used by any customer to meet local regulations.
-
-TODO:
-- add link to principles document and explain we cover only the ones relevant for LZ
 
 ## Principle 1. Location
 [OCI *realms*](https://docs.oracle.com/en-us/iaas/Content/General/Concepts/regions.htm) are physical boundary of a cloud offering acompanied by possible different operations team and possibly a part of a different Oracle legal entities depending on the offering. *Realms* consist of multiple *regions*, dedicated networking and control plane resulting in a complete isolation of different realms. Regions within a realm are be located in multiple physical locations. Each *region* has one or more *availability domains (AD)*. AD is bound to a specific data center. When customer subscribes to OCI Cloud a new [*tenancy*](https://docs.oracle.com/en/cloud/foundation/cloud_architecture/governance/tenancy.html) is created in a contractually agreed *realm*. A _tenant_ is logical boundary creating isolated evnironment for each customer. A _tenant_ is by default subscribed only to the [Home Region](https://docs.oracle.com/en-us/iaas/Content/Identity/Tasks/managingregions.htm), however with required policies *Tenancy* can subscribe to all available regions within the realm (subject to service limits). This can be controlled using Sovereign Landing Zone Addon using policies below. In our example of a German customer with mandate to keep data within EU Sovereign Cloud eu-frankfurt-2 region and can limit their tenancy data locations to this region and prevent storing data in any other region.
@@ -94,10 +92,10 @@ These resources are key building blocks in [One-OE landing zone](https://github.
 
 In One-OE we include concepts as Segregation of duties and Isolation of resources. These [security controls](https://github.com/oracle-quickstart/terraform-oci-open-lz/tree/master/one-oe/design#12-vision) allow customer to start a cloud journey with a set of best practices that can be deployed within a few minutes.
 
-TODO:
-- investigate MFA for local users
-
 ### Vault Key Management
+
+![vault key options](./addons/sovereign-controls/content/vault-options.jpg)
+
 
 **Let's Talk About Encryption**. In this section, we will explore encryption keys, focusing on who manages the encryption keys you use in the cloud and where these keys are stored.
 Oracle Cloud Infrastructure (OCI) offers encryption solutions in the following categories:
@@ -105,17 +103,17 @@ Oracle Cloud Infrastructure (OCI) offers encryption solutions in the following c
 * **Oracle-Managed Encryption**: In this model, Oracle manages the encryption keys on your behalf, allowing you to focus on managing your applications.
 * **Customer-Managed Encryption**: This approach gives you full control over managing encryption keys and the Hardware Security Modules (HSMs) that securely store these keys.
 
-We recommend the **customer-managed** option for encryption, as it provides greater control. Within this option, there are different levels of management available:
+We recommend the **customer-managed encryptions keys** option, as it provides greater control. Within this option, there are different levels of management available:
 
 >**1. Virtual Vault**: Virtual Vault is a multitenant encryption service where your keys are stored in HSM partitions shared with keys from other customers. It is the default encryption service in Vault.
->    
+>
 >**2.Private Vault**: Private Vault is a single-tenant encryption service that stores keys in a dedicated HSM partition with isolated cores specifically for your tenancy.
 >Both Vault options allow you to create master encryption keys stored in one of the following ways:
 >* **HSM-Protected**: All cryptographic operations and key storage are performed within the HSM.
 >* **Software-Protected**: Cryptographic operations and key storage occur on a bare metal server, with keys secured at rest using a root key from the HSM.
->    
+>
 >**3.Dedicated KMS**: Dedicated KMS provides a single-tenant HSM partition as a service, offering a fully isolated environment for key storage and management. The main distinction from Private Vault is      the level of control over the HSM partitions.
->    
+>
 >**4.External KMS**: External KMS allows you to use your own third-party key management system to protect data in OCI services. You retain control over the keys and HSMs outside of OCI, managing their       administration and security. Master keys are always stored outside OCI, and encryption/decryption operations occur externally. EKMS provides a separation between key management and encrypted resources      in OCI.For more information, visit: [Oracle Sovereign Cloud Solutions - OCI External KMS](https://blogs.oracle.com/cloud-infrastructure/post/oracle-sovereign-cloud-solutions-oci-external-kms)
 
 Selecting the appropriate OCI KMS offering for your organization depends on your specific needs for control, security, and other factors. Consider the following:
@@ -123,102 +121,21 @@ Selecting the appropriate OCI KMS offering for your organization depends on your
 * **Compliance Requirements**: If your organization needs to store encryption keys on-premises, OCI External KMS may be a suitable choice.
 * **Cost**: OCI Virtual Vault is the most cost-effective option for customer-managed encryption. In contrast, OCI Dedicated KMS and OCI External KMS are more expensive but offer enhanced control and compliance capabilities.
 
-By default, all OCI Landing Zones use Virtual Vault with Software keys for cost efficiency, which is sufficient to meet CIS requirements. For sovereign customers, we recommend enhancing security by configuring either Dedicated KMS or External KMS. To read more about this topics check this [article](https://blogs.oracle.com/cloudsecurity/post/key-management-key-to-protecting-data-in-oracle-cloud) or this [FAQ](https://www.oracle.com/security/cloud-security/key-management/faq/)
+By default, all OCI Landing Zones use Virtual Vault with Software encryption keys for cost efficiency, which is sufficient to meet CIS requirements. For sovereign customers, we recommend enhancing security by configuring either Dedicated KMS or External KMS. To read more about this topics see [Key Management, Key to protecting data in Oracle Cloud](https://blogs.oracle.com/cloudsecurity/post/key-management-key-to-protecting-data-in-oracle-cloud) or [Key Management FAQ](https://www.oracle.com/security/cloud-security/key-management/faq/)
 
-TODO:
-- default vault with software encryption keys already for all LZs
-- explain options for other vault types and keys
-- recommend set-up of Private Vault as OCI alternative
-- explain External KMS (verify orchestrator support)
-- add link for pricing
-
-https://blogs.oracle.com/cloud-infrastructure/post/oracle-sovereign-cloud-solutions-oci-external-kms
+For pricing information about the different KMS options see [Key Management Pricing](https://www.oracle.com/security/cloud-security/pricing/#key-management)
 
 ### Audit Service logs
 For different legal requlations it might be required to keep access logs for a certain period of time. One-OE out of box sets-up empty bucket for storing logs. This bucket can be additionaly configured with [Data Retention Rules](https://docs.oracle.com/en-us/iaas/Content/Object/Tasks/usingretentionrules.htm) that can be modified to a specific period as required. Data Retention Rules provide attestation that files haven't been modified since creation and prevents their removal until retention period expires.
 
-TODO:
-- add configuration in json for retention rules
-- add link to the pricing for object storage
+For pricing information about Object Storage see [Object Storage Pricing](https://www.oracle.com/cloud/storage/pricing/)
 
 ### Cloud Guard and Security Zones
 Cloud Guard is security posture management service. It allows to set-up preemptive and remedial actions if security policies are violated. One-OE comes with pre-configured Cloud Guard for common rules and implements Security zones to implement parts of CIS security controls.
 
 Security Zones are set-up by default in all Standard Landing Zones without requiring modifications for Sovereign Landing Zone addon.
 
-TODO:
-- take out all recipes and link them to other documentation instead
-
-**RECIPE 1**
-
-| category           | description                                                                                      |
-| ------------------ | ------------------------------------------------------------------------------------------------ |
-| Deny Public Access | Object Storage buckets in a security zone can't be public.                                       |
-| Deny Public Access | Databases in a security zone can't be assigned to public subnets. They must use private subnets. |
-
-
-**RECIPE 2**
-| category           | description                                                                                                                                                                    |
-| ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Include            | RECIPE 1 Statements                                                                                                                                                            |
-| Require Encryption | Block volumes in a security zone must use a customer-managed master encryption key in the Vault service. They can't use the default encryption key managed by Oracle.          |
-| Require Encryption | Boot volumes in a security zone must use a customer-managed master encryption key in the Vault service. They can't use the default encryption key managed by Oracle.           |
-| Require Encryption | Object Storage buckets in a security zone must use a customer-managed master encryption key in the Vault service. They can't use the default encryption key managed by Oracle. |
-| Require Encryption | File systems in the security zone must use a customer-managed master encryption key in the Vault service. They can't use the default encryption key managed by Oracle.         |
-
-
-**RECIPE 3**
-| category                       | description                                                                                        |
-| ------------------------------ | -------------------------------------------------------------------------------------------------- |
-| Include                        | RECIPE 1 Statements                                                                                |
-| Include                        | RECIPE 2 Statements                                                                                |
-| Restrict Resource Modification | You can't delete a VCN in the security zone.                                                       |
-| Restrict Resource Modification | You can't delete VCN security list in the security zone.                                           |
-| Restrict Resource Modification | You can't delete a VCN network security group in the security zone.                                |
-| Restrict Resource Movement     | You can't move a subnet in a security zone to a compartment that is not in the same security zone. |
-
-
-**RECIPE 4**
-
-| category           | description                                                                   |
-| ------------------ | ----------------------------------------------------------------------------- |
-| Include            | RECIPE 1 Statements                                                           |
-| Include            | RECIPE 2 Statements                                                           |
-| Include            | RECIPE 3 Statements                                                           |
-| Deny Public Access | Subnets in a security zone can't be public. All subnets must be private.      |
-| Deny Public Access | You can't add an internet gateway to a VCN within the security zone.          |
-| Deny Public Access | Load balancers in a security zone can't be public. All load balancers must be | private. |
-| Deny Public Access | Deny public network access in cloud shell.                                    |
-
-
-**RECIPE 5**
-
-| category                      | description                                                                                                                      |
-| ----------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| Include                       | RECIPE 1 Statements                                                                                                              |
-| Include                       | RECIPE 2 Statements                                                                                                              |
-| Include                       | RECIPE 3 Statements                                                                                                              |
-| Include                       | RECIPE 4 Statements                                                                                                              |
-| Restrict Resource Association | You can't attach a block storage volume in a security zone to a compute instance that isn't in the same security zone.           |
-| Restrict Resource Association | You can't attach a block storage volume to a compute instance in a security zone if the volume isn't in the same security zone.  |
-| Restrict Resource Association | You can't attach a boot volume in a security zone to a compute instance that isn't in the same security zone.                    |
-| Restrict Resource Association | You can't attach a boot volume to a compute instance in a security zone if the volume isn't in the same security zone.           |
-| Restrict Resource Association | You can't launch a compute instance in a security zone if its boot volume isn't in the same security zone.                       |
-| Restrict Resource Association | You can't launch a compute instance using a boot volume in a security zone if the instance isn't in the same security zone.      |
-| Restrict Resource Association | You can't move a block volume to a security zone if it's attached to a compute instance that isn't in the same security zone.    |
-| Restrict Resource Association | You can't move a boot volume to a security zone if it's attached to a compute instance that isn't in the same security zone.     |
-| Restrict Resource Association | You can't export a file system in the security zone through a mount target that isn't in the same security zone.                 |
-| Restrict Resource Association | You can't export a file system through a mount target in a security zone if the file system isn't in the same security zone.     |
-| Restrict Resource Association | You can't create a mount target that uses a subnet in a security zone if the mount target isn't in the same security zone.       |
-| Restrict Resource Movement    | You can't move a compute instance in a security zone to a compartment that is not in the same security zone.                     |
-| Restrict Resource Movement    | You can't move a compute instance to a security zone from a compartment that is not in the same security zone.                   |
-| Restrict Resource Movement    | You can't move a block volume in a security zone to a compartment that is not in the same security zone.                         |
-| Restrict Resource Movement    | You can't move a boot volume in a security zone to a compartment that is not in the same security zone.                          |
-| Restrict Resource Movement    | You can't move a bucket  from a security zone to a standard compartment.                                                         |
-| Restrict Resource Movement    | You can't move a database from a security zone to a standard compartment.                                                        |
-| Restrict Resource Movement    | You can't move a database from a standard compartment to a security zone if its Data Guard association isn't in a security zone. |
-| Restrict Resource Movement    | You can't move a file system in the security zone to a compartment that is not in the same security zone.                        |
-| Restrict Resource Movement    | You can't move a mount target in the security zone to a compartment that is not in the same security zone.                       |
+The following [recipes](./recipes.md) are part of Landing Zone Bluepring can be used in Security Zones.
 
 ### Vulnerability scanning
 Oracle Cloud Infrastructure (OCI) Vulnerability Scanning Service gives teams the confidence to develop their code on instances with the latest security patches and helps ensure a smooth transition to building production code. Combined with Oracle Cloud Guard, operations teams gain a unified view of all instances to quickly remediate any open ports or patch unsafe packages discovered by the Vulnerability Scanning Service.
@@ -231,14 +148,20 @@ Vulnerability scanning service is deployed in all Standard Landing Zones without
 https://www.oracle.com/security/cloud-security/cloud-guard/instance-security/
 
 ## Principle 5. Encryption
-All data on OCI is encrypted out of box by Oracle managed encryption keys. It's recommended that users instead create and manage their own keys. There's a set of services allowing exactly that. One-OE comes out of box with Vault services configured to store keys in a software based key management system (KMS), however for enhanced security and increased regulatory requirements Sovereign addon uses a dedicated virtual partition inside HMS using hardware encryption. Additionaly users have option to use completely dedicated HMS appliance or use 3rd party services with combination of externally managed encryption keys.
+Data can be encrypted during different operations with it:
+- Transit - Encryption of data that's being transfered between two servers
+- Rest - Encryption of data stored in persistent data solution like Block Storage or Object Storage
+- Use - Encryption of data while it's loaded into Compute memory and calculations are performed on top of it.
 
-The customer managed encryption keys are enforced using security zones as part of One-OE
+On top of that in Cloud
+
+All data in OCI is encrypted at rest and in transift out of the box by Oracle managed encryption keys. It's recommended to instead create and manage your own keys. There's a set of services allowing exactly that. One-OE comes out of box with Vault services configured to store keys in a software based key management system (KMS), however for enhanced security and increased regulatory requirements Sovereign addon uses a dedicated virtual partition inside HMS using hardware encryption. Additionaly users have option to use completely dedicated HMS appliance or use 3rd party services with combination of externally managed encryption keys.
+
+The customer managed encryption keys are enforced using security zones as part of One-OE blueprint.
 
 Confidential computing allows encryption of data in use, utilizing new capabilities of AMD EPYC™ processors. This additionally increases security as data and applications are encrypted using a per-VM encryption key generated during the VM creation and resides solely in the AMD Secure Processor. Provides high performance while protecting data in-use with minimal performance impact
 
 TODO:
-- explain data in transit, use, rest
 - explain all trafic in transit, rest is encrypted, explain different virtualization layers
 
 Confidential computing can be enforced using quotas
