@@ -23,6 +23,8 @@ Sovereign Cloud Principles](https://docs.oracle.com/en-us/iaas/Content/Resources
 - The [implementation guide](./implementation.md) covering the steps to extend the existing LZ with the Sovereign Controls addon.
 In the following sections in order to simplify the example of Sovereign LZ we take an example of a German customer who wants to implement Sovereign controls, however these principles can be used by any customer to meet local regulations.
 
+TODO: rephrase the two points
+
 ## Principle 1. Location
 [OCI *realms*](https://docs.oracle.com/en-us/iaas/Content/General/Concepts/regions.htm) are physical boundary of a cloud offering acompanied by possible different operations team and possibly a part of a different Oracle legal entities depending on the offering. *Realms* consist of multiple *regions*, dedicated networking and control plane resulting in a complete isolation of different realms. Regions within a realm are be located in multiple physical locations. Each *region* has one or more *availability domains (AD)*. AD is bound to a specific data center. When customer subscribes to OCI Cloud a new [*tenancy*](https://docs.oracle.com/en/cloud/foundation/cloud_architecture/governance/tenancy.html) is created in a contractually agreed *realm*. A _tenant_ is logical boundary creating isolated evnironment for each customer. A _tenant_ is by default subscribed only to the [Home Region](https://docs.oracle.com/en-us/iaas/Content/Identity/Tasks/managingregions.htm), however with required policies *Tenancy* can subscribe to all available regions within the realm (subject to service limits). This can be controlled using Sovereign Landing Zone Addon using policies below. In our example of a German customer with mandate to keep data within EU Sovereign Cloud eu-frankfurt-2 region and can limit their tenancy data locations to this region and prevent storing data in any other region.
 
@@ -51,6 +53,8 @@ zero object-storage quota /*/ in tenancy where request.region != 'eu-frankfurt-2
 The provided list of Quota Policies is not exhausitve and includes only the most common services used for storing data. See [Available Quota by Service](https://docs.oracle.com/en-us/iaas/Content/Quotas/Concepts/resourcequotas_topic-Available_Quotas_by_Service.htm) for a full list.
 
 Additionally for multi tenancy set-up the [Governance Rules](https://docs.oracle.com/en-us/iaas/Content/General/Concepts/organization_management_overview.htm#governance_rules) in Organizations service can be used to impose restriction on child tenancy
+
+TODO: consider adding image from https://www.oracle.com/cloud/public-cloud-regions/ or make a diagrams to explain realms and regions
 
 ## Principle 2. Isolation
 Oracle Cloud offering is at a high level segregated to the Control Plane and the Data Plane. The Control Plane is managed by Oracle and is used for managing and orchestrating underlaying infrastructure using Console or APIs. The Control Planes ensure logical separation between different customers. The Data Plane is a result of the user configuration of the services in the Control Plane and defines virtual resrouces like Networking, Database, Compute instances.
@@ -92,6 +96,8 @@ These resources are key building blocks in [One-OE landing zone](https://github.
 
 In One-OE we include concepts as Segregation of duties and Isolation of resources. These [security controls](https://github.com/oracle-quickstart/terraform-oci-open-lz/tree/master/one-oe/design#12-vision) allow customer to start a cloud journey with a set of best practices that can be deployed within a few minutes.
 
+# TODO: add picture https://docs.oracle.com/en-us/iaas/integration/doc/henosis-setting-users-groups-and-policies-cloud-accounts-that-use-identity-domains.html
+
 ### Vault Key Management
 
 ![vault key options](./addons/sovereign-controls/content/vault-options.jpg)
@@ -125,6 +131,8 @@ By default, all OCI Landing Zones use Virtual Vault with Software encryption key
 
 For pricing information about the different KMS options see [Key Management Pricing](https://www.oracle.com/security/cloud-security/pricing/#key-management)
 
+# TODO: put in image of different vault options
+
 ### Audit Service logs
 For different legal requlations it might be required to keep access logs for a certain period of time. One-OE out of box sets-up empty bucket for storing logs. This bucket can be additionaly configured with [Data Retention Rules](https://docs.oracle.com/en-us/iaas/Content/Object/Tasks/usingretentionrules.htm) that can be modified to a specific period as required. Data Retention Rules provide attestation that files haven't been modified since creation and prevents their removal until retention period expires.
 
@@ -137,12 +145,19 @@ Security Zones are set-up by default in all Standard Landing Zones without requi
 
 The following [recipes](./recipes.md) are part of Landing Zone Bluepring can be used in Security Zones.
 
+# TODO:
+- implementation.md should include security zones
+- recipes.md should include ocid for recipes in commercial and EU OSC
+- test the recipes
+
 ### Vulnerability scanning
 Oracle Cloud Infrastructure (OCI) Vulnerability Scanning Service gives teams the confidence to develop their code on instances with the latest security patches and helps ensure a smooth transition to building production code. Combined with Oracle Cloud Guard, operations teams gain a unified view of all instances to quickly remediate any open ports or patch unsafe packages discovered by the Vulnerability Scanning Service.
 
 Vulnerability scannig fully supports Oracle Linux, CentOS, Ubuntu with partial support for Windows. In case of large number of Windows instances it's recommended to use additional endpoint security solution. Vulnerability scanning uses NVD, OVAL, CIS as sources for common vulnerabilities. It's not recommend to use Vulnerability Scanning in Virtual Machine DB Systems as they are closely monitored by other services are contain custom patches for high performance and availability instead follow [Updating DB Systems](https://docs.oracle.com/iaas/dbcs/doc/update-db-system.html) guide.
 
 Vulnerability scanning service is deployed in all Standard Landing Zones without requiring any customization for Sovereing Landing zone addon.
+
+# TODO: test in EU OSC
 
 ### Cloud Guard Instance security
 https://www.oracle.com/security/cloud-security/cloud-guard/instance-security/
@@ -162,7 +177,8 @@ The customer managed encryption keys are enforced using security zones as part o
 Confidential computing allows encryption of data in use, utilizing new capabilities of AMD EPYC™ processors. This additionally increases security as data and applications are encrypted using a per-VM encryption key generated during the VM creation and resides solely in the AMD Secure Processor. Provides high performance while protecting data in-use with minimal performance impact
 
 TODO:
-- explain all trafic in transit, rest is encrypted, explain different virtualization layers
+- update example for in transit encryption to oracle database
+- move KMS from Principle 3 to Principle 5
 
 Confidential computing can be enforced using quotas
 ```
@@ -170,9 +186,6 @@ zero standard1-core-count quotas in tenancy where request.region != 'eu-frankfur
 set compute-core quota standard-e4-core-count to 480 in tenancy where request.region != 'eu-frankfurt-2'
 set compute-core quota standard-e3-core-ad-count to 480 in tenancy where request.region != 'eu-frankfurt-2'
 ```
-
-## Principle 6. Cybersecurity
-
 
 
 &nbsp;
