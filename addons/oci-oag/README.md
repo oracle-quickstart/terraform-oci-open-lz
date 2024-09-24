@@ -33,7 +33,7 @@ allow group GRP-OE-SECURITY-ADMINS to manage agcs-instance in compartment cmp-la
 #### Deploying OAG an instance 
 As a user in the GRP-OE-SECURITY-ADMINS follow the steps in [Set Up Service Instance](https://docs.oracle.com/en/cloud/paas/access-governance/cagsi/).
 
-#### Enabling an OAG an instance to review OCI IAM access in the tenancy
+#### Enabling an OAG instance to review OCI IAM access in the tenancy
 After the OAG instance is provisioned follow steps from the [Integrate with Oracle Cloud Infrastructure (OCI) Identity and Access Management (IAM) ](https://docs.oracle.com/en/cloud/paas/access-governance/tjrtj/index.html#GUID-29D81CB5-08BB-45CB-8911-416F6FFDB0C9) to configure the OAG Instance to review the OCI IAM policies .  
 
 1. As a user in the GRP-OE-IAM-ADMINS or the Administrator group go to the **Set up Identity Resources Manually** and preform the below steps:
