@@ -168,12 +168,11 @@ By default, all OCI Landing Zones use Virtual Vault with Software encryption key
 
 For pricing information about the different KMS options see [Key Management Pricing](https://www.oracle.com/security/cloud-security/pricing/#key-management)
 
-# TODO: put in image of different vault options
-
 
 TODO:
 - update example for in transit encryption to oracle database
 - move KMS from Principle 3 to Principle 5
+- put in image of different vault options
 
 Confidential computing can be enforced using quotas
 ```
