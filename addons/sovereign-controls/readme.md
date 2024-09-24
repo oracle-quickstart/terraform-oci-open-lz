@@ -71,7 +71,7 @@ OCI landing zone blueprints address all three types of isolation, meeting any cu
 
 The following diagram illustrates different options for logical isolation, enabled through compartment structures or a multi-tenancy approach.
 
-<img align="center" src="https://github.com/oci-landing-zones/terraform-oci-open-lz/blob/content/addons/sovereign-controls/Sovereign.gif" width="1000" />
+<img src="https://github.com/oci-landing-zones/terraform-oci-open-lz/blob/content/addons/sovereign-controls/Sovereign.gif" width="1000" />
 
 Customers access cloud resources and services through their cloud tenancy. A cloud tenancy is a secure and isolated partition of OCI, and it only exists in a single realm. Within this tenancy, customers can access services and deploy workloads across all regions within that realm by default, although customers can set policies to restrict this access. However, by design, customers can only access regions within the realm of their tenancy.
 
@@ -91,7 +91,7 @@ Identity and Access Managment in OCI is controlled by a few key resources:
 - Policies bind permission to a group in a specific compartment.
 - Groups are collections of users within Identity Domain.
 
-<img src="https://github.com/oci-landing-zones/oci-landing-zone-operating-entities/blob/sovereign-lz/addons/sovereign-controls/content/User-cmp-policies.png" width="400" >
+<img align="center" src="https://github.com/oci-landing-zones/oci-landing-zone-operating-entities/blob/sovereign-lz/addons/sovereign-controls/content/User-cmp-policies.png" width="400" >
 
 These resources are key building blocks in [One-OE landing zone](https://github.com/oracle-quickstart/terraform-oci-open-lz/tree/master/one-oe). One-OE landing zone has been designed with CIS standard as a guiding principle and is compiant with CIS out of box.
 
