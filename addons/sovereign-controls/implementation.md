@@ -10,8 +10,11 @@
 ## Summary
 This guide covers implementation of principles outlined in the [Sovereign Controls addon](./readme.md) document. As an example we're going to implement restrictions for a German customer using EU Sovereign Cloud and who wants to restrict data to the `eu-frankfurt-2` region. However, configuration files can be modified to specifically fit the sovereign requiremnts of any customer.
 
+## IAM Layer
+You can find configuration examples for groups, policies, and quotas in [identity_svrgn.auto.tfvars.json](./identity_svrgn.auto.tfvars.json) file.
+
 ## 1. Groups
-If a certain user group needs to be restricted to provisioning resources in a specific region, it's recommended to create a region-specific group. As IAM Groups are global resources, we denote the region specificity using a naming convention, e.g., `grp-${region}-security-admins`. You can see an example configuration in the [identity.auto.tfvars.json](./identity.auto.tfvars.json) file, section `groups_configuration`. These groups can either extend the default groups provided by a landing zone or replace them if only a specific region is required.
+If a certain user group needs to be restricted to provisioning resources in a specific region, it's recommended to create a region-specific group. As IAM Groups are global resources, we denote the region specificity using a naming convention, e.g., `grp-${region}-security-admins`. You can see an example configuration in the [identity_svrgn.auto.tfvars.json](./identity.auto.tfvars.json) file, section `groups_configuration`. These groups can either extend the default groups provided by a landing zone or replace them if only a specific region is required.
 
 > [!WARNING]
 > Groups and policies controlling access permisions to IAM need to be always applied in the [Home Region](https://docs.oracle.com/en-us/iaas/Content/Identity/Tasks/managingregions.htm#The) otherwise they have no effect.
@@ -37,12 +40,14 @@ zero object-storage quota /*/ in tenancy where request.region != 'eu-frankfurt-2
 
 Additionally for a multi-Tenancy set-up [Governance Rules](https://docs.oracle.com/en-us/iaas/Content/General/Concepts/organization_management_overview.htm#governance_rules) in Organizations service can be used to impose restriction on Child Tenancy
 
+## Security Layer
+
+You can find configuration examples for security zones in [security_svrgn.auto.tfvars.json](./security_svrgn.auto.tfvars.json) file.
+
 ## 4. Security Zones
 The One-OE blueprint proposes the strongest security posture using all OCI capabilities, including Security Zones. Security Zones apply a security strategy to OCI cloud compartments and prevent actions that could undermine customers’ security posture. Security Zones policies can be applied to various types of cloud infrastructure (network, compute, storage, databases, etc.) to ensure the security of cloud resources and prevent security misconfigurations. Users determine which policies are appropriate for their needs by defining custom policy sets for each security zone.
-In the One-OE blueprint 5 recipes are included following the best practices as example.
 
-Security landing zones are defined using the various OCIDs of the security zone policies. These OCIDs are linked to specific realms. For the sovereign realm, you need to use the appropriate OCID.
-Example of recipe:
+The One-OE blueprint includes five recipes that follow best practices as examples. Security landing zones are defined using various OCIDs from security zone policies, which are tied to specific realms. For sovereign realms, you must use the appropriate OCID, as the generic configuration is not valid. Refer to the provided example for the correct configuration
 ```
 "SZ-RCP-LZP-03-SHARED-NETWORK-KEY": {
                 "name": "sz-rcp-lzp-03-shared-network",
