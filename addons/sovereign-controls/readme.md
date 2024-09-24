@@ -12,9 +12,7 @@
   - [Access Governance](#access-governance)
   - [Cloud Guard and Security Zones](#cloud-guard-and-security-zones)
   - [Vulnerability scanning](#vulnerability-scanning)
-- [Principle 4. Personal Requirements](#principle-4-personal-requirements)
-- [Principle 5. Encryption](#principle-5-encryption)
-- [Principle 6. Cybersecurity](#principle-6-cybersecurity)
+- [Principle 4. Encryption](#principle-5-encryption)
 
 ## Summary
 The Sovereign Controls addons consists of two documents:
@@ -107,11 +105,6 @@ Security Zones are set-up by default in all Standard Landing Zones without requi
 
 The following [recipes](./recipes.md) are part of Landing Zone Bluepring can be used in Security Zones.
 
-# TODO:
-- implementation.md should include security zones
-- recipes.md should include ocid for recipes in commercial and EU OSC
-- test the recipes
-
 ### Vulnerability scanning
 Oracle Cloud Infrastructure (OCI) Vulnerability Scanning Service gives teams the confidence to develop their code on instances with the latest security patches and helps ensure a smooth transition to building production code. Combined with Oracle Cloud Guard, operations teams gain a unified view of all instances to quickly remediate any open ports or patch unsafe packages discovered by the Vulnerability Scanning Service.
 
@@ -119,12 +112,17 @@ Vulnerability scannig fully supports Oracle Linux, CentOS, Ubuntu with partial s
 
 Vulnerability scanning service is deployed in all Standard Landing Zones without requiring any customization for Sovereing Landing zone addon.
 
-# TODO: test in EU OSC
-
 ### Cloud Guard Instance security
 https://www.oracle.com/security/cloud-security/cloud-guard/instance-security/
 
-## Principle 5. Encryption
+# TODO:
+- implementation.md should include security zones
+- recipes.md should include ocid for recipes in commercial and EU OSC
+- test the recipes
+- Review CG instance security, and test in EU OSC
+- test vss in EU OSC
+  
+## Principle 4. Encryption
 Data can be encrypted during different operations with it:
 - Transit - Encryption of data that's being transfered between two servers
 - Rest - Encryption of data stored in persistent data solution like Block Storage or Object Storage
@@ -141,7 +139,6 @@ Confidential computing allows encryption of data in use, utilizing new capabilit
 ### Vault Key Management
 
 ![vault key options](./addons/sovereign-controls/content/vault-options.jpg)
-
 
 **Let's Talk About Encryption**. In this section, we will explore encryption keys, focusing on who manages the encryption keys you use in the cloud and where these keys are stored.
 Oracle Cloud Infrastructure (OCI) offers encryption solutions in the following categories:
