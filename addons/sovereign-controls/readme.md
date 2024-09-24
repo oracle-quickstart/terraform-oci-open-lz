@@ -78,12 +78,10 @@ Customers access cloud resources and services through their cloud tenancy. A clo
 OCI provides this technical assurance by grouping regions and then separating these groups of regions through strict geographic segmentation and physical and logical network isolation. OCI has multiple realms, including a commercial public cloud realm, an EU Sovereign Cloud realm, and multiple government cloud realms for the US, UK, and Australia. Each customer’s Dedicated Region, Isolated Region, and Alloy deployment are also contained within their own separate realm.
 
 ## Principle 3. Access Management
-Organizations can use the following core OCI services to implement a comprehensive approach to access
-management:
-- The Identity and Access Management (IAM) - provides centralized access control and identity
-- Vault Key Management - provides secure access to secrets and keys.
-- The Audit service logs - provides visibility into all actions performed in the cloud.
-- Cloud Guard and Security Zones - work together to define and enforce security policies, and take corrective action when issues are detected.
+Organizations can use the following core OCI services to implement a comprehensive approach to access management:
+- **The Identity and Access Management (IAM)** - provides centralized access control and identity
+- **The Audit service logs** - provides visibility into all actions performed in the cloud.
+- **Cloud Guard and Security Zones** - work together to define and enforce security policies, and take corrective action when issues are detected.
 
 ### IAM
 Identity and Access Managment in OCI is controlled by a few key resources:
@@ -96,42 +94,6 @@ Identity and Access Managment in OCI is controlled by a few key resources:
 These resources are key building blocks in [One-OE landing zone](https://github.com/oracle-quickstart/terraform-oci-open-lz/tree/master/one-oe). One-OE landing zone has been designed with CIS standard as a guiding principle and is compiant with CIS out of box.
 
 In One-OE we include concepts as Segregation of duties and Isolation of resources. These [security controls](https://github.com/oracle-quickstart/terraform-oci-open-lz/tree/master/one-oe/design#12-vision) allow customer to start a cloud journey with a set of best practices that can be deployed within a few minutes.
-
-
-### Vault Key Management
-
-![vault key options](./addons/sovereign-controls/content/vault-options.jpg)
-
-
-**Let's Talk About Encryption**. In this section, we will explore encryption keys, focusing on who manages the encryption keys you use in the cloud and where these keys are stored.
-Oracle Cloud Infrastructure (OCI) offers encryption solutions in the following categories:
-
-* **Oracle-Managed Encryption**: In this model, Oracle manages the encryption keys on your behalf, allowing you to focus on managing your applications.
-* **Customer-Managed Encryption**: This approach gives you full control over managing encryption keys and the Hardware Security Modules (HSMs) that securely store these keys.
-
-We recommend the **customer-managed encryptions keys** option, as it provides greater control. Within this option, there are different levels of management available:
-
->**1. Virtual Vault**: Virtual Vault is a multitenant encryption service where your keys are stored in HSM partitions shared with keys from other customers. It is the default encryption service in Vault.
->
->**2.Private Vault**: Private Vault is a single-tenant encryption service that stores keys in a dedicated HSM partition with isolated cores specifically for your tenancy.
->Both Vault options allow you to create master encryption keys stored in one of the following ways:
->* **HSM-Protected**: All cryptographic operations and key storage are performed within the HSM.
->* **Software-Protected**: Cryptographic operations and key storage occur on a bare metal server, with keys secured at rest using a root key from the HSM.
->
->**3.Dedicated KMS**: Dedicated KMS provides a single-tenant HSM partition as a service, offering a fully isolated environment for key storage and management. The main distinction from Private Vault is      the level of control over the HSM partitions.
->
->**4.External KMS**: External KMS allows you to use your own third-party key management system to protect data in OCI services. You retain control over the keys and HSMs outside of OCI, managing their       administration and security. Master keys are always stored outside OCI, and encryption/decryption operations occur externally. EKMS provides a separation between key management and encrypted resources      in OCI.For more information, visit: [Oracle Sovereign Cloud Solutions - OCI External KMS](https://blogs.oracle.com/cloud-infrastructure/post/oracle-sovereign-cloud-solutions-oci-external-kms)
-
-Selecting the appropriate OCI KMS offering for your organization depends on your specific needs for control, security, and other factors. Consider the following:
-* **Security Requirements**: If your organization requires master encryption keys to be stored in single-tenant HSMs and never leave the HSMs in plain text, you should consider OCI Private Vault or OCI Dedicated KMS. These options provide a higher level of control and isolation for your encryption keys in OCI.
-* **Compliance Requirements**: If your organization needs to store encryption keys on-premises, OCI External KMS may be a suitable choice.
-* **Cost**: OCI Virtual Vault is the most cost-effective option for customer-managed encryption. In contrast, OCI Dedicated KMS and OCI External KMS are more expensive but offer enhanced control and compliance capabilities.
-
-By default, all OCI Landing Zones use Virtual Vault with Software encryption keys for cost efficiency, which is sufficient to meet CIS requirements. For sovereign customers, we recommend enhancing security by configuring either Dedicated KMS or External KMS. To read more about this topics see [Key Management, Key to protecting data in Oracle Cloud](https://blogs.oracle.com/cloudsecurity/post/key-management-key-to-protecting-data-in-oracle-cloud) or [Key Management FAQ](https://www.oracle.com/security/cloud-security/key-management/faq/)
-
-For pricing information about the different KMS options see [Key Management Pricing](https://www.oracle.com/security/cloud-security/pricing/#key-management)
-
-# TODO: put in image of different vault options
 
 ### Audit Service logs
 For different legal requlations it might be required to keep access logs for a certain period of time. One-OE out of box sets-up empty bucket for storing logs. This bucket can be additionaly configured with [Data Retention Rules](https://docs.oracle.com/en-us/iaas/Content/Object/Tasks/usingretentionrules.htm) that can be modified to a specific period as required. Data Retention Rules provide attestation that files haven't been modified since creation and prevents their removal until retention period expires.
@@ -175,6 +137,42 @@ All data in OCI is encrypted at rest and in transift out of the box by Oracle ma
 The customer managed encryption keys are enforced using security zones as part of One-OE blueprint.
 
 Confidential computing allows encryption of data in use, utilizing new capabilities of AMD EPYC™ processors. This additionally increases security as data and applications are encrypted using a per-VM encryption key generated during the VM creation and resides solely in the AMD Secure Processor. Provides high performance while protecting data in-use with minimal performance impact
+
+### Vault Key Management
+
+![vault key options](./addons/sovereign-controls/content/vault-options.jpg)
+
+
+**Let's Talk About Encryption**. In this section, we will explore encryption keys, focusing on who manages the encryption keys you use in the cloud and where these keys are stored.
+Oracle Cloud Infrastructure (OCI) offers encryption solutions in the following categories:
+
+* **Oracle-Managed Encryption**: In this model, Oracle manages the encryption keys on your behalf, allowing you to focus on managing your applications.
+* **Customer-Managed Encryption**: This approach gives you full control over managing encryption keys and the Hardware Security Modules (HSMs) that securely store these keys.
+
+We recommend the **customer-managed encryptions keys** option, as it provides greater control. Within this option, there are different levels of management available:
+
+>**1. Virtual Vault**: Virtual Vault is a multitenant encryption service where your keys are stored in HSM partitions shared with keys from other customers. It is the default encryption service in Vault.
+>
+>**2.Private Vault**: Private Vault is a single-tenant encryption service that stores keys in a dedicated HSM partition with isolated cores specifically for your tenancy.
+>Both Vault options allow you to create master encryption keys stored in one of the following ways:
+>* **HSM-Protected**: All cryptographic operations and key storage are performed within the HSM.
+>* **Software-Protected**: Cryptographic operations and key storage occur on a bare metal server, with keys secured at rest using a root key from the HSM.
+>
+>**3.Dedicated KMS**: Dedicated KMS provides a single-tenant HSM partition as a service, offering a fully isolated environment for key storage and management. The main distinction from Private Vault is      the level of control over the HSM partitions.
+>
+>**4.External KMS**: External KMS allows you to use your own third-party key management system to protect data in OCI services. You retain control over the keys and HSMs outside of OCI, managing their       administration and security. Master keys are always stored outside OCI, and encryption/decryption operations occur externally. EKMS provides a separation between key management and encrypted resources      in OCI.For more information, visit: [Oracle Sovereign Cloud Solutions - OCI External KMS](https://blogs.oracle.com/cloud-infrastructure/post/oracle-sovereign-cloud-solutions-oci-external-kms)
+
+Selecting the appropriate OCI KMS offering for your organization depends on your specific needs for control, security, and other factors. Consider the following:
+* **Security Requirements**: If your organization requires master encryption keys to be stored in single-tenant HSMs and never leave the HSMs in plain text, you should consider OCI Private Vault or OCI Dedicated KMS. These options provide a higher level of control and isolation for your encryption keys in OCI.
+* **Compliance Requirements**: If your organization needs to store encryption keys on-premises, OCI External KMS may be a suitable choice.
+* **Cost**: OCI Virtual Vault is the most cost-effective option for customer-managed encryption. In contrast, OCI Dedicated KMS and OCI External KMS are more expensive but offer enhanced control and compliance capabilities.
+
+By default, all OCI Landing Zones use Virtual Vault with Software encryption keys for cost efficiency, which is sufficient to meet CIS requirements. For sovereign customers, we recommend enhancing security by configuring either Dedicated KMS or External KMS. To read more about this topics see [Key Management, Key to protecting data in Oracle Cloud](https://blogs.oracle.com/cloudsecurity/post/key-management-key-to-protecting-data-in-oracle-cloud) or [Key Management FAQ](https://www.oracle.com/security/cloud-security/key-management/faq/)
+
+For pricing information about the different KMS options see [Key Management Pricing](https://www.oracle.com/security/cloud-security/pricing/#key-management)
+
+# TODO: put in image of different vault options
+
 
 TODO:
 - update example for in transit encryption to oracle database
