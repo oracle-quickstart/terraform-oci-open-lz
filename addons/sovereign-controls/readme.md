@@ -87,13 +87,12 @@ management:
 
 ### IAM
 Identity and Access Managment in OCI is controlled by a few key resources:
-- Compartments are logical separation of resroucers and can be nested.
-- Policies bind permission to a group in a specific compartment.
-- Groups are collections of users within Identity Domain.
+- **Compartments** are logical separation of resources and can be nested.
+- **Groups** are collections of users within Identity Domain.
+- **Policies** bind permission to a group in a specific compartment.
 <p align="center" width="100%">
     <img width="45%" src="https://github.com/oci-landing-zones/oci-landing-zone-operating-entities/blob/sovereign-lz/addons/sovereign-controls/content/User-cmp-policies.png">
 </p>
-
 These resources are key building blocks in [One-OE landing zone](https://github.com/oracle-quickstart/terraform-oci-open-lz/tree/master/one-oe). One-OE landing zone has been designed with CIS standard as a guiding principle and is compiant with CIS out of box.
 
 In One-OE we include concepts as Segregation of duties and Isolation of resources. These [security controls](https://github.com/oracle-quickstart/terraform-oci-open-lz/tree/master/one-oe/design#12-vision) allow customer to start a cloud journey with a set of best practices that can be deployed within a few minutes.
