@@ -78,6 +78,7 @@ The following diagram illustrates different options for logical isolation, enabl
 Customers access cloud resources and services through their cloud tenancy. A cloud tenancy is a secure and isolated partition of OCI, and it only exists in a single realm. Within this tenancy, customers can access services and deploy workloads across all regions within that realm by default, although customers can set policies to restrict this access. However, by design, customers can only access regions within the realm of their tenancy.
 
 OCI provides this technical assurance by grouping regions and then separating these groups of regions through strict geographic segmentation and physical and logical network isolation. OCI has multiple realms, including a commercial public cloud realm, an EU Sovereign Cloud realm, and multiple government cloud realms for the US, UK, and Australia. Each customer’s Dedicated Region, Isolated Region, and Alloy deployment are also contained within their own separate realm.
+
 ## Principle 3. Access Management
 Organizations can use the following core OCI services to implement a comprehensive approach to access
 management:
@@ -92,7 +93,7 @@ Identity and Access Managment in OCI is controlled by a few key resources:
 - Policies bind permission to a group in a specific compartment.
 - Groups are collections of users within Identity Domain.
 
-![](./addons/sovereign-controls/content/User-cmp-policies.jpg)
+<img src="content/User-cmp-policies.jpg" width="400" >
 
 These resources are key building blocks in [One-OE landing zone](https://github.com/oracle-quickstart/terraform-oci-open-lz/tree/master/one-oe). One-OE landing zone has been designed with CIS standard as a guiding principle and is compiant with CIS out of box.
 
