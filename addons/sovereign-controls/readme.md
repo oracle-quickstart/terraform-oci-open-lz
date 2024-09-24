@@ -93,7 +93,7 @@ Identity and Access Managment in OCI is controlled by a few key resources:
 - Policies bind permission to a group in a specific compartment.
 - Groups are collections of users within Identity Domain.
 
-<img src="content/User-cmp-policies.jpg" width="400" >
+<img src="https://github.com/oci-landing-zones/oci-landing-zone-operating-entities/blob/sovereign-lz/addons/sovereign-controls/content/User-cmp-policies.png" width="400" >
 
 These resources are key building blocks in [One-OE landing zone](https://github.com/oracle-quickstart/terraform-oci-open-lz/tree/master/one-oe). One-OE landing zone has been designed with CIS standard as a guiding principle and is compiant with CIS out of box.
 
