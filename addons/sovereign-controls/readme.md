@@ -90,9 +90,6 @@ Identity and Access Managment in OCI is controlled by a few key resources:
 - Compartments are logical separation of resroucers and can be nested.
 - Policies bind permission to a group in a specific compartment.
 - Groups are collections of users within Identity Domain.
-
-<img src="https://github.com/oci-landing-zones/oci-landing-zone-operating-entities/blob/sovereign-lz/addons/sovereign-controls/content/User-cmp-policies.png" width="400" >
-
 <p align="center" width="100%">
     <img width="45%" src="https://github.com/oci-landing-zones/oci-landing-zone-operating-entities/blob/sovereign-lz/addons/sovereign-controls/content/User-cmp-policies.png">
 </p>
