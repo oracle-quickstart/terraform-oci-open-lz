@@ -92,11 +92,12 @@ Identity and Access Managment in OCI is controlled by a few key resources:
 - Policies bind permission to a group in a specific compartment.
 - Groups are collections of users within Identity Domain.
 
+![](./addons/sovereign-controls/content/User-cmp-policies.jpg)
+
 These resources are key building blocks in [One-OE landing zone](https://github.com/oracle-quickstart/terraform-oci-open-lz/tree/master/one-oe). One-OE landing zone has been designed with CIS standard as a guiding principle and is compiant with CIS out of box.
 
 In One-OE we include concepts as Segregation of duties and Isolation of resources. These [security controls](https://github.com/oracle-quickstart/terraform-oci-open-lz/tree/master/one-oe/design#12-vision) allow customer to start a cloud journey with a set of best practices that can be deployed within a few minutes.
 
-# TODO: add picture https://docs.oracle.com/en-us/iaas/integration/doc/henosis-setting-users-groups-and-policies-cloud-accounts-that-use-identity-domains.html
 
 ### Vault Key Management
 
