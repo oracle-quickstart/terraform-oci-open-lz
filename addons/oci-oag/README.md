@@ -7,7 +7,7 @@
 ### Overview
 Welcome to the **Oracle Access Governance (OAG) [Addon](#)**, Oracle Access Governance is a native Identity Governance and Administration (IGA) cloud service that helps meet governance and compliance requirements for digital identities and access rights across applications, infrastructure, and identity platforms. A single instance on Oracle Access Governance can now govern one or more OCI tenancies across regions, on-premises identity applications, and hybrid deployments. With a central deployment of Access Governance, customers can improve their security posture with enterprise-wide capabilities to identify anomalies and help mitigate security threats.
 
-OCI Operating Entities LZ may optionally deploy the OCI IAM Groups and Policies for deploying Oracle Access Governance (OAG) as an add-on . The landing zone runtime will deploy a new group for managing the OAG and and add policies to the Security Administrator to be able to create and Oracle Access Governance (OAG) instance in the security compartment.
+OCI Operating Entities LZ may optionally deploy OCI IAM Groups and Policies for Oracle Access Governance (OAG) as an add-on. During the landing zone deployment, a new group and policies will be created for managing OAG, and an additional policy statement will be added to the Security Administrator policy. This will allow the creation of an Oracle Access Governance (OAG) instance within the security compartment.
 
 &nbsp; 
 
