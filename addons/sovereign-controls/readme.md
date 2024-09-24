@@ -71,9 +71,7 @@ OCI landing zone blueprints address all three types of isolation, meeting any cu
 
 The following diagram illustrates different options for logical isolation, enabled through compartment structures or a multi-tenancy approach.
 
-<img src="https://github.com/oci-landing-zones/terraform-oci-open-lz/blob/content/addons/sovereign-controls/Sovereign.gif" width="1000" />
-
-
+<img align="center" src="https://github.com/oci-landing-zones/terraform-oci-open-lz/blob/content/addons/sovereign-controls/Sovereign.gif" width="1000" />
 
 Customers access cloud resources and services through their cloud tenancy. A cloud tenancy is a secure and isolated partition of OCI, and it only exists in a single realm. Within this tenancy, customers can access services and deploy workloads across all regions within that realm by default, although customers can set policies to restrict this access. However, by design, customers can only access regions within the realm of their tenancy.
 
