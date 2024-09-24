@@ -45,9 +45,9 @@ Additionally for a multi-Tenancy set-up [Governance Rules](https://docs.oracle.c
 You can find configuration examples for security zones in [security_svrgn.auto.tfvars.json](./security_svrgn.auto.tfvars.json) file.
 
 ## 4. Security Zones
-The One-OE blueprint proposes the strongest security posture using all OCI capabilities, including Security Zones. Security Zones apply a security strategy to OCI cloud compartments and prevent actions that could undermine customers’ security posture. Security Zones policies can be applied to various types of cloud infrastructure (network, compute, storage, databases, etc.) to ensure the security of cloud resources and prevent security misconfigurations. Users determine which policies are appropriate for their needs by defining custom policy sets for each security zone.
+The OCI landing zone blueprints proposes the strongest security posture using all OCI capabilities, including Security Zones. Security Zones apply a security strategy to OCI cloud compartments and prevent actions that could undermine customers’ security posture. Security Zones policies can be applied to various types of cloud infrastructure (network, compute, storage, databases, etc.) to ensure the security of cloud resources and prevent security misconfigurations. Users determine which policies are appropriate for their needs by defining custom policy sets for each security zone.
 
-The One-OE blueprint includes five recipes that follow best practices as examples. Security landing zones are defined using various OCIDs from security zone policies, which are tied to specific realms. For sovereign realms, you must use the appropriate OCID, as the generic configuration is not valid. Refer to the provided example for the correct configuration
+The [One-OE](https://github.com/oci-landing-zones/oci-landing-zone-operating-entities/tree/master/blueprints/one-oe/design) includes five recipes that follow best practices as examples. Security landing zones are defined using various OCIDs from security zone policies, which are tied to specific realms. For sovereign realms, you must use the appropriate OCID, as the generic configuration is not valid. Refer to the provided example for the correct configuration
 ```
 "SZ-RCP-LZP-03-SHARED-NETWORK-KEY": {
                 "name": "sz-rcp-lzp-03-shared-network",
