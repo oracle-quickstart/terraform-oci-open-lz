@@ -16,12 +16,10 @@
 
 ## Summary
 The Sovereign Controls addons consists of two documents:
-- **This** document, an implementation of [Oracle Cloud Infrastructure
+- **This** document, expands on [Oracle Cloud Infrastructure
 Sovereign Cloud Principles](https://docs.oracle.com/en-us/iaas/Content/Resources/Assets/whitepapers/oracle-sovereign-cloud-principles.pdf) document, covering the Sovereign principles that can be used to meet local regulatory requirements using Landing Zone.
-- The [implementation guide](./implementation.md) covering the steps to extend the existing LZ with the Sovereign Controls addon.
+- The Sovereign [implementation guide](./implementation.md) covering the steps to extend the existing LZ with the Sovereign Controls addon.
 In the following sections in order to simplify the example of Sovereign LZ we take an example of a German customer who wants to implement Sovereign controls, however these principles can be used by any customer to meet local regulations.
-
-TODO: rephrase the two points
 
 ## Principle 1. Location
 [OCI *realms*](https://docs.oracle.com/en-us/iaas/Content/General/Concepts/regions.htm) are physical boundary of a cloud offering acompanied by possible different operations team and possibly a part of a different Oracle legal entities depending on the offering. *Realms* consist of multiple *regions*, dedicated networking and control plane resulting in a complete isolation of different realms. Regions within a realm are be located in multiple physical locations. Each *region* has one or more *availability domains (AD)*. AD is bound to a specific data center. When customer subscribes to OCI Cloud a new [*tenancy*](https://docs.oracle.com/en/cloud/foundation/cloud_architecture/governance/tenancy.html) is created in a contractually agreed *realm*. A _tenant_ is logical boundary creating isolated evnironment for each customer. A _tenant_ is by default subscribed only to the [Home Region](https://docs.oracle.com/en-us/iaas/Content/Identity/Tasks/managingregions.htm), however with required policies *Tenancy* can subscribe to all available regions within the realm (subject to service limits). This can be controlled using Sovereign Landing Zone Addon using policies below. In our example of a German customer with mandate to keep data within EU Sovereign Cloud eu-frankfurt-2 region and can limit their tenancy data locations to this region and prevent storing data in any other region.
@@ -52,7 +50,7 @@ The provided list of Quota Policies is not exhausitve and includes only the most
 
 Additionally for multi tenancy set-up the [Governance Rules](https://docs.oracle.com/en-us/iaas/Content/General/Concepts/organization_management_overview.htm#governance_rules) in Organizations service can be used to impose restriction on child tenancy
 
-TODO: consider adding image from https://www.oracle.com/cloud/public-cloud-regions/ or make a diagrams to explain realms and regions
+![OCI Realm](content/oci-realm.png)
 
 ## Principle 2. Isolation
 Oracle Cloud offering is at a high level segregated to the Control Plane and the Data Plane. The Control Plane is managed by Oracle and is used for managing and orchestrating underlaying infrastructure using Console or APIs. The Control Planes ensure logical separation between different customers. The Data Plane is a result of the user configuration of the services in the Control Plane and defines virtual resrouces like Networking, Database, Compute instances.
@@ -121,7 +119,7 @@ https://www.oracle.com/security/cloud-security/cloud-guard/instance-security/
 - test the recipes
 - Review CG instance security, and test in EU OSC
 - test vss in EU OSC
-  
+
 ## Principle 4. Encryption
 Data can be encrypted during different operations with it:
 - Transit - Encryption of data that's being transfered between two servers
