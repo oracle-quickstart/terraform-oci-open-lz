@@ -10,6 +10,8 @@
 ## Summary
 This guide covers implementation of principles outlined in the [Sovereign Controls addon](./readme.md) document. As an example we're going to implement restrictions for a German customer using EU Sovereign Cloud and who wants to restrict data to the `eu-frankfurt-2` region. However, configuration files can be modified to specifically fit the sovereign requiremnts of any customer.
 
+TODO: Explain one-oe relation
+
 ## IAM Layer
 You can find configuration examples for groups, policies, and quotas in [identity_svrgn.auto.tfvars.json](./identity_svrgn.auto.tfvars.json) file.
 
@@ -59,7 +61,7 @@ The [One-OE](https://github.com/oci-landing-zones/oci-landing-zone-operating-ent
                     "ocid1.securityzonessecuritypolicy.oc19..aaaaaaaayxn5ccbavcx5w35uoozguju5zlovvtbnuvnrduxpdp3vsho33lba",
                     "ocid1.securityzonessecuritypolicy.oc19..aaaaaaaazlzn66zeazf5npw46qah3wlqpfrugv7w4tjbomit2msr43stidga",
                     "ocid1.securityzonessecuritypolicy.oc19..aaaaaaaaw6v2nz4unovq3joqk6pguxpaqriws2vzd7gvpldgai47tl72wseq"
-                    
+
                 ]
             },
 ```

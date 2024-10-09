@@ -95,38 +95,40 @@ Identity and Access Managment in OCI is controlled by a few key resources:
 <p align="center" width="100%">
     <img width="45%" src="https://github.com/oci-landing-zones/oci-landing-zone-operating-entities/blob/sovereign-lz/addons/sovereign-controls/content/User-cmp-policies.png">
 </p>
-These resources are key building blocks in [One-OE landing zone](https://github.com/oracle-quickstart/terraform-oci-open-lz/tree/master/one-oe). One-OE landing zone has been designed with CIS standard as a guiding principle and is compiant with CIS out of box.
+These resources are key building blocks in the standard [One-OE landing zone](https://github.com/oracle-quickstart/terraform-oci-open-lz/tree/master/one-oe/). One-OE landing zone has been designed with CIS standard as a guiding principle and is compiant with CIS out of box.
+
+OCI IAM by default enforces MFA for the local accounts.
 
 In One-OE we include concepts as Segregation of duties and Isolation of resources. These [security controls](https://github.com/oracle-quickstart/terraform-oci-open-lz/tree/master/one-oe/design#12-vision) allow customer to start a cloud journey with a set of best practices that can be deployed within a few minutes.
 
 ### Audit Service logs
-For different legal requlations it might be required to keep access logs for a certain period of time. One-OE out of box sets-up empty bucket for storing logs. This bucket can be additionaly configured with [Data Retention Rules](https://docs.oracle.com/en-us/iaas/Content/Object/Tasks/usingretentionrules.htm) that can be modified to a specific period as required. Data Retention Rules provide attestation that files haven't been modified since creation and prevents their removal until retention period expires.
+For different legal requlations it might be required to keep access logs for a certain period of time. One-OE out of box sets-up empty bucket for storing logs. This bucket can be additionaly configured with [Data Retention Rules](https://docs.oracle.com/en-us/iaas/Content/Object/Tasks/usingretentionrules.htm) that can be modified to a specific period as required. Data Retention Rules provide attestation that files haven't been modified since creation and prevents their removal until retention period expires. This means even an attacker that would gain Administrator rights wouldn't be able to tamper with the logs for the duration of the retention period.
 
 For pricing information about Object Storage see [Object Storage Pricing](https://www.oracle.com/cloud/storage/pricing/)
 
 ### Cloud Guard and Security Zones
-Cloud Guard is security posture management service. It allows to set-up preemptive and remedial actions if security policies are violated. One-OE comes with pre-configured Cloud Guard for common rules and implements Security zones to implement parts of CIS security controls.
+Cloud Guard is a security posture management service. It allows to set-up preemptive and remedial actions if security policies are violated. One-OE comes with pre-configured Cloud Guard for common rules and implements Security zones to implement parts of CIS security controls.
 
 Security Zones are set-up by default in all Standard Landing Zones without requiring modifications for Sovereign Landing Zone addon.
 
 The following [recipes](./recipes.md) are part of Landing Zone Bluepring can be used in Security Zones.
 
 ### Vulnerability scanning
-Oracle Cloud Infrastructure (OCI) Vulnerability Scanning Service gives teams the confidence to develop their code on instances with the latest security patches and helps ensure a smooth transition to building production code. Combined with Oracle Cloud Guard, operations teams gain a unified view of all instances to quickly remediate any open ports or patch unsafe packages discovered by the Vulnerability Scanning Service.
+Oracle Cloud Infrastructure (OCI) Vulnerability Scanning Service gives teams the confidence that all the instances on OCI are with the latest security patches. Combined with Oracle Cloud Guard, operations teams gain a unified view of all instances to quickly remediate any open ports or patch unsafe packages discovered by the Vulnerability Scanning Service.
 
-Vulnerability scannig fully supports Oracle Linux, CentOS, Ubuntu with partial support for Windows. In case of large number of Windows instances it's recommended to use additional endpoint security solution. Vulnerability scanning uses NVD, OVAL, CIS as sources for common vulnerabilities. It's not recommend to use Vulnerability Scanning in Virtual Machine DB Systems as they are closely monitored by other services are contain custom patches for high performance and availability instead follow [Updating DB Systems](https://docs.oracle.com/iaas/dbcs/doc/update-db-system.html) guide.
+Vulnerability scannig fully supports Oracle Linux, CentOS, Ubuntu with partial support for Windows. In case of large number of Windows instances it's recommended to use additional endpoint security solution. Vulnerability scanning uses NVD, OVAL, CIS as sources for common vulnerabilities. It's not recommend to use Vulnerability Scanning in Virtual Machine DB Systems as they are closely monitored by other services which contain custom patches for high performance and availability instead follow [Updating DB Systems](https://docs.oracle.com/iaas/dbcs/doc/update-db-system.html) guide.
 
-Vulnerability scanning service is deployed in all Standard Landing Zones without requiring any customization for Sovereing Landing zone addon.
+Vulnerability scanning service is deployed in Sovereign Landing zone without requiring any further modifications.
 
 ### Cloud Guard Instance security
 https://www.oracle.com/security/cloud-security/cloud-guard/instance-security/
 
 # TODO:
-- implementation.md should include security zones
-- recipes.md should include ocid for recipes in commercial and EU OSC
-- test the recipes
-- Review CG instance security, and test in EU OSC
-- test vss in EU OSC
+- remove references from this file to One-OE, if implementation steps are followed customer gets Sovereign LZ (Peter)
+- explain MFA for authentication with external IdP (Peter)
+- implementation.md should include security zones (Paola)
+- Review CG instance security, and test in EU OSC (Vardan)
+- Vulnerability scanning (Paola)
 
 ## Principle 4. Encryption
 Data can be encrypted during different operations with it:
@@ -144,7 +146,7 @@ Confidential computing allows encryption of data in use, utilizing new capabilit
 
 ### Vault Key Management
 
-![vault key options](./addons/sovereign-controls/content/vault-options.jpg)
+![vault key options](./content/vault-options.jpg)
 
 **Let's Talk About Encryption**. In this section, we will explore encryption keys, focusing on who manages the encryption keys you use in the cloud and where these keys are stored.
 Oracle Cloud Infrastructure (OCI) offers encryption solutions in the following categories:
@@ -154,16 +156,16 @@ Oracle Cloud Infrastructure (OCI) offers encryption solutions in the following c
 
 We recommend the **customer-managed encryptions keys** option, as it provides greater control. Within this option, there are different levels of management available:
 
->**1. Virtual Vault**: Virtual Vault is a multitenant encryption service where your keys are stored in HSM partitions shared with keys from other customers. It is the default encryption service in Vault.
->
->**2.Private Vault**: Private Vault is a single-tenant encryption service that stores keys in a dedicated HSM partition with isolated cores specifically for your tenancy.
->Both Vault options allow you to create master encryption keys stored in one of the following ways:
->* **HSM-Protected**: All cryptographic operations and key storage are performed within the HSM.
->* **Software-Protected**: Cryptographic operations and key storage occur on a bare metal server, with keys secured at rest using a root key from the HSM.
->
->**3.Dedicated KMS**: Dedicated KMS provides a single-tenant HSM partition as a service, offering a fully isolated environment for key storage and management. The main distinction from Private Vault is      the level of control over the HSM partitions.
->
->**4.External KMS**: External KMS allows you to use your own third-party key management system to protect data in OCI services. You retain control over the keys and HSMs outside of OCI, managing their       administration and security. Master keys are always stored outside OCI, and encryption/decryption operations occur externally. EKMS provides a separation between key management and encrypted resources      in OCI.For more information, visit: [Oracle Sovereign Cloud Solutions - OCI External KMS](https://blogs.oracle.com/cloud-infrastructure/post/oracle-sovereign-cloud-solutions-oci-external-kms)
+**1. Virtual Vault**: Virtual Vault is a multitenant encryption service where your keys are stored in HSM partitions shared with keys from other customers. It is the default encryption service in Vault.
+
+**2.Private Vault**: Private Vault is a single-tenant encryption service that stores keys in a dedicated HSM partition with isolated cores specifically for your tenancy.
+Both Vault options allow you to create master encryption keys stored in one of the following ways:
+* **HSM-Protected**: All cryptographic operations and key storage are performed within the HSM.
+* **Software-Protected**: Cryptographic operations and key storage occur on a bare metal server, with keys secured at rest using a root key from the HSM.
+
+**3.Dedicated KMS**: Dedicated KMS provides a single-tenant HSM partition as a service, offering a fully isolated environment for key storage and management. The main distinction from Private Vault is      the level of control over the HSM partitions.
+
+**4.External KMS**: External KMS allows you to use your own third-party key management system to protect data in OCI services. You retain control over the keys and HSMs outside of OCI, managing their       administration and security. Master keys are always stored outside OCI, and encryption/decryption operations occur externally. EKMS provides a separation between key management and encrypted resources      in OCI.For more information, visit: [Oracle Sovereign Cloud Solutions - OCI External KMS](https://blogs.oracle.com/cloud-infrastructure/post/oracle-sovereign-cloud-solutions-oci-external-kms)
 
 Selecting the appropriate OCI KMS offering for your organization depends on your specific needs for control, security, and other factors. Consider the following:
 * **Security Requirements**: If your organization requires master encryption keys to be stored in single-tenant HSMs and never leave the HSMs in plain text, you should consider OCI Private Vault or OCI Dedicated KMS. These options provide a higher level of control and isolation for your encryption keys in OCI.
@@ -176,8 +178,7 @@ For pricing information about the different KMS options see [Key Management Pric
 
 
 TODO:
-- update example for in transit encryption to oracle database
-- move KMS from Principle 3 to Principle 5
+- explain lifecycle of data
 - put in image of different vault options
 
 Confidential computing can be enforced using quotas
