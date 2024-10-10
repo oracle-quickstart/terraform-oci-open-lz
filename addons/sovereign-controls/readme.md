@@ -131,18 +131,21 @@ https://www.oracle.com/security/cloud-security/cloud-guard/instance-security/
 - Vulnerability scanning (Paola)
 
 ## Principle 4. Encryption
-Data can be encrypted during different operations with it:
-- Transit - Encryption of data that's being transfered between two servers
-- Rest - Encryption of data stored in persistent data solution like Block Storage or Object Storage
-- Use - Encryption of data while it's loaded into Compute memory and calculations are performed on top of it.
+In OCI, data encryption is applied at various stages of the data lifecycle - at rest, in transit, and in use.
 
-On top of that in Cloud
+**Data at rest:** <br />
+Data encryption at rest in OCI is enabled by default across all storage services, including block, object, and file storage, as well as Oracle's platform services. This automatic encryption ensures data protection without requiring user intervention - Oracle manages the encryption keys by default, simplifying security for users.
+However, for enhanced security and to meet stricter regulatory requirements, the Sovereign add-on leverages OCI Vault's customer-managed encryption service, with a Private Vault - a single-tenant, dedicated partition within a Hardware Security Module (HSM). Additionally, customers have the flexibility to provision a fully dedicated HSM appliance (dedicated KMS) or integrate third-party key management solutions, allowing for the use of externally managed encryption keys.
 
-All data in OCI is encrypted at rest and in transift out of the box by Oracle managed encryption keys. It's recommended to instead create and manage your own keys. There's a set of services allowing exactly that. One-OE comes out of box with Vault services configured to store keys in a software based key management system (KMS), however for enhanced security and increased regulatory requirements Sovereign addon uses a dedicated virtual partition inside HMS using hardware encryption. Additionaly users have option to use completely dedicated HMS appliance or use 3rd party services with combination of externally managed encryption keys.
+**Data in transit:** <br />
+All control plane data in transit is encrypted using Transport Layer Security (TLS) 1.2 or later, ensuring that data transmitted across the network is securely encrypted and never sent in plaintext. Additionally, all data transmitted between availability domains and regions within OCI is protected using MACsec.
+Customers utilizing FastConnect for private connections between their on-premises data centers and OCI can also enable MACsec encryption to secure this traffic.
+While Oracle manages in-transit encryption for control plane components, customers are responsible for implementing encryption for any in-transit data associated with their custom components or applications.
 
-The customer managed encryption keys are enforced using security zones as part of One-OE blueprint.
+**Data in use:** <br />
+OCI’s confidential computing ensures that data remains encrypted and secure even during processing. It encrypts and isolates in-use data and the applications processing that data at the hardware level.
+A confidential instance is a compute virtual machine (VM) or bare metal instance where both the data and the application processing the data are encrypted and isolated while the application processes the data, preventing unauthorized access or modification of either the data or the application.
 
-Confidential computing allows encryption of data in use, utilizing new capabilities of AMD EPYC™ processors. This additionally increases security as data and applications are encrypted using a per-VM encryption key generated during the VM creation and resides solely in the AMD Secure Processor. Provides high performance while protecting data in-use with minimal performance impact
 
 ### Vault Key Management
 
